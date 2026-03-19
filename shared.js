@@ -141,11 +141,11 @@ function renderSidebar(activePage) {
 function renderThemeSwitcher() {
   const el = document.getElementById('ds-theme-switcher');
   if (!el) return;
-  el.innerHTML = THEMES.map(t => {
+  el.innerHTML = THEMES.map((t, i) => {
     const isActive = _currentThemeId === t.id;
     const activeRing = isActive ? `outline:2px solid ${t.accent};outline-offset:2px;` : '';
     const activeOpacity = isActive ? '1' : '0.7';
-    return `<button onclick="applyTheme(THEMES.find(x=>x.id==='${t.id}'))" class="px-2 py-1 rounded text-[10px] font-medium border transition-colors" style="border-color:${isActive ? t.accent : 'var(--app-border)'};color:var(--app-muted);background:${t.bg};opacity:${activeOpacity};${activeRing}" title="${t.name}">
+    return `<button onclick="applyTheme(THEMES[${i}])" class="px-2 py-1 rounded text-[10px] font-medium border transition-colors" style="border-color:${isActive ? t.accent : 'var(--app-border)'};color:var(--app-muted);background:${t.bg};opacity:${activeOpacity};${activeRing}" title="${t.name}">
       <span style="color:${t.accent}">${t.name}</span>
     </button>`;
   }).join('');
