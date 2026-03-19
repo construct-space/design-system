@@ -16,15 +16,16 @@
 }
 
 .dark {
-  --app-background: #0a0a0a;
-  --app-foreground: #fafafa;
-  --app-muted: #71717a;
-  --app-accent: #FF2D55;
+  /* Defaults match vs-dark theme (bg #1e1e1e) — applyTheme() overrides these */
+  --app-background: #1e1e1e;
+  --app-foreground: #d4d4d4;
+  --app-muted: #6b7280;
+  --app-accent: #34C759;
   --app-accent-foreground: #ffffff;
-  --app-border: #27272a;
-  --app-surface: #111113;
-  --app-card: #18181b;
-  --app-input-bg: #1e1e22;
+  --app-border: #3c3c3c;
+  --app-surface: #282828;
+  --app-card: #2e2e2e;
+  --app-input-bg: #363636;
   --app-error: #f87171;
   --app-success: #4ade80;
   --app-warning: #fbbf24;

@@ -1,25 +1,246 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Inputs — Construct Design System</title>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-<link rel="stylesheet" href="tokens.css"><script src="shared.js"></script>
-</head>
-<body class="dark min-h-screen">
-<div class="flex min-h-screen">
-  <nav id="ds-sidebar" class="w-56 shrink-0 border-r border-[var(--app-border)] bg-[var(--app-surface)] flex flex-col fixed top-0 left-0 bottom-0 overflow-y-auto"></nav>
-  <main class="ml-56 flex-1 px-10 py-8 max-w-4xl">
-    <div class="fixed top-4 right-4 flex flex-wrap gap-1 max-w-md z-50" id="ds-theme-switcher"></div>
-    <div class="mb-8">
-      <p class="text-[10px] uppercase tracking-widest mb-1" style="color:var(--app-accent)">Components</p>
-      <h1 class="text-3xl font-bold">Inputs</h1>
-      <p class="text-sm mt-1" style="color:var(--app-muted)">Text fields, selects, textareas, switches.</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Inputs — Construct DS</title><link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><link rel="stylesheet" href="tokens.css"><script src="shared.js"></script>
+<style>
+  .ds-input { width:100%; padding:0.5rem 0.75rem; border-radius:0.5rem; font-size:0.875rem; font-family:inherit; border:1px solid var(--app-border); background:var(--app-input-bg); color:var(--app-foreground); outline:none; transition:border-color 0.15s, box-shadow 0.15s; }
+  .ds-input::placeholder { color:var(--app-muted); }
+  .ds-input:focus { border-color:var(--app-accent); box-shadow:0 0 0 3px color-mix(in srgb, var(--app-accent) 20%, transparent); }
+  .ds-input-error { border-color:var(--app-error) !important; }
+  .ds-input-error:focus { box-shadow:0 0 0 3px color-mix(in srgb, var(--app-error) 20%, transparent) !important; }
+  .ds-input:disabled { opacity:0.5; cursor:not-allowed; }
+  .ds-select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 0.75rem center; padding-right:2.5rem; }
+  .ds-label { display:block; font-size:0.875rem; font-weight:500; margin-bottom:0.375rem; }
+  .ds-helper { font-size:0.75rem; margin-top:0.375rem; }
+  .ds-checkbox { width:1.125rem; height:1.125rem; border-radius:0.25rem; border:1.5px solid var(--app-border); background:var(--app-input-bg); display:inline-flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.15s; flex-shrink:0; }
+  .ds-checkbox.checked { background:var(--app-accent); border-color:var(--app-accent); }
+  .ds-switch { width:2.5rem; height:1.375rem; border-radius:9999px; background:var(--app-border); cursor:pointer; position:relative; transition:background 0.2s; flex-shrink:0; }
+  .ds-switch::after { content:''; position:absolute; top:2px; left:2px; width:1rem; height:1rem; border-radius:9999px; background:white; transition:transform 0.2s; }
+  .ds-switch.on { background:var(--app-accent); }
+  .ds-switch.on::after { transform:translateX(1.125rem); }
+  .ds-radio { width:1.125rem; height:1.125rem; border-radius:9999px; border:1.5px solid var(--app-border); background:var(--app-input-bg); display:inline-flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.15s; flex-shrink:0; }
+  .ds-radio.checked { border-color:var(--app-accent); }
+  .ds-radio.checked::after { content:''; width:0.5rem; height:0.5rem; border-radius:9999px; background:var(--app-accent); }
+</style>
+</head><body class="dark min-h-screen"><div class="flex min-h-screen"><nav id="ds-sidebar" class="w-56 shrink-0 border-r border-[var(--app-border)] bg-[var(--app-surface)] flex flex-col fixed top-0 left-0 bottom-0 overflow-y-auto"></nav><main class="ml-56 flex-1 px-10 py-8 max-w-4xl">
+<div class="fixed top-4 right-4 flex flex-wrap gap-1 max-w-md z-50" id="ds-theme-switcher"></div>
+<div class="mb-8"><p class="text-[10px] uppercase tracking-widest mb-1" style="color:var(--app-accent)">Components</p><h1 class="text-3xl font-bold">Inputs</h1><p class="text-sm mt-1" style="color:var(--app-muted)">Text fields, selects, textareas, checkboxes, switches, radios, and form patterns.</p></div>
+
+<!-- Text Inputs -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Text Inputs</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Standard text input with placeholder, password, and search variants.</p>
+  <div class="space-y-4 p-6 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+    <div class="max-w-sm">
+      <label class="ds-label">Default Text</label>
+      <input type="text" class="ds-input" placeholder="Enter your name...">
     </div>
-    <section class="mb-8"><p class="text-sm" style="color:var(--app-muted)">Content coming — use the theme switcher to preview tokens across all themes.</p></section>
-  </main>
-</div>
-<script>renderSidebar('inputs.html');</script>
-</body>
-</html>
+    <div class="max-w-sm">
+      <label class="ds-label">Password</label>
+      <input type="password" class="ds-input" value="supersecret">
+    </div>
+    <div class="max-w-sm">
+      <label class="ds-label">Search</label>
+      <div class="relative">
+        <svg class="size-4 absolute left-3 top-1/2 -translate-y-1/2" style="color:var(--app-muted)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.35-4.35"/></svg>
+        <input type="search" class="ds-input" style="padding-left:2.25rem" placeholder="Search spaces...">
+      </div>
+    </div>
+    <div class="max-w-sm">
+      <label class="ds-label">With prefix</label>
+      <div class="flex rounded-lg overflow-hidden border border-[var(--app-border)]">
+        <span class="px-3 flex items-center text-sm" style="background:var(--app-surface);color:var(--app-muted);border-right:1px solid var(--app-border)">https://</span>
+        <input type="text" class="ds-input" style="border:none;border-radius:0" placeholder="example.com">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- States -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Input States</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Default, focus (click to see), error, and disabled states.</p>
+  <div class="grid grid-cols-2 gap-4 p-6 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+    <div>
+      <label class="ds-label">Default</label>
+      <input type="text" class="ds-input" placeholder="Default state">
+    </div>
+    <div>
+      <label class="ds-label">Focused</label>
+      <input type="text" class="ds-input" placeholder="Click to focus" autofocus>
+    </div>
+    <div>
+      <label class="ds-label">Error</label>
+      <input type="text" class="ds-input ds-input-error" value="invalid-email">
+      <p class="ds-helper" style="color:var(--app-error)">Please enter a valid email address.</p>
+    </div>
+    <div>
+      <label class="ds-label">Disabled</label>
+      <input type="text" class="ds-input" value="Cannot edit" disabled>
+    </div>
+  </div>
+</section>
+
+<!-- Select -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Select</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Native select with custom arrow styling.</p>
+  <div class="p-6 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+    <div class="max-w-sm">
+      <label class="ds-label">Model Provider</label>
+      <select class="ds-input ds-select">
+        <option>Select a provider...</option>
+        <option>Anthropic</option>
+        <option>OpenAI</option>
+        <option>Google</option>
+        <option>Mistral</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<!-- Textarea -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Textarea</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Multi-line text input for longer content.</p>
+  <div class="p-6 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+    <div class="max-w-lg">
+      <label class="ds-label">System Prompt</label>
+      <textarea class="ds-input" rows="4" placeholder="Enter your system prompt..."></textarea>
+      <p class="ds-helper" style="color:var(--app-muted)">Supports Markdown formatting. Max 4000 characters.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Checkbox -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Checkbox</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Div-based checkboxes with checked and unchecked states.</p>
+  <div class="p-6 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] space-y-3">
+    <label class="flex items-center gap-3 cursor-pointer" onclick="this.querySelector('.ds-checkbox').classList.toggle('checked')">
+      <div class="ds-checkbox checked">
+        <svg class="size-3" fill="none" viewBox="0 0 24 24" stroke="var(--app-accent-foreground)" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <span class="text-sm">Enable streaming responses</span>
+    </label>
+    <label class="flex items-center gap-3 cursor-pointer" onclick="this.querySelector('.ds-checkbox').classList.toggle('checked')">
+      <div class="ds-checkbox">
+        <svg class="size-3 hidden" fill="none" viewBox="0 0 24 24" stroke="var(--app-accent-foreground)" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <span class="text-sm">Send usage analytics</span>
+    </label>
+    <label class="flex items-center gap-3 cursor-pointer" onclick="this.querySelector('.ds-checkbox').classList.toggle('checked')">
+      <div class="ds-checkbox">
+        <svg class="size-3 hidden" fill="none" viewBox="0 0 24 24" stroke="var(--app-accent-foreground)" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <span class="text-sm">Auto-save conversations</span>
+    </label>
+  </div>
+</section>
+
+<!-- Switch -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Switch</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Toggle switch for binary on/off settings.</p>
+  <div class="p-6 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] space-y-4">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium">Dark Mode</p>
+        <p class="text-xs" style="color:var(--app-muted)">Use dark color scheme</p>
+      </div>
+      <div class="ds-switch on" onclick="this.classList.toggle('on')"></div>
+    </div>
+    <div class="flex items-center justify-between" style="border-top:1px solid var(--app-border);padding-top:1rem">
+      <div>
+        <p class="text-sm font-medium">Notifications</p>
+        <p class="text-xs" style="color:var(--app-muted)">Receive push notifications</p>
+      </div>
+      <div class="ds-switch" onclick="this.classList.toggle('on')"></div>
+    </div>
+    <div class="flex items-center justify-between" style="border-top:1px solid var(--app-border);padding-top:1rem">
+      <div>
+        <p class="text-sm font-medium">Beta Features</p>
+        <p class="text-xs" style="color:var(--app-muted)">Enable experimental features</p>
+      </div>
+      <div class="ds-switch" onclick="this.classList.toggle('on')"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Radio -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Radio Buttons</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Single-selection radio group.</p>
+  <div class="p-6 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+    <label class="ds-label">Default Model</label>
+    <div class="space-y-3 mt-2" id="radio-group">
+      <label class="flex items-center gap-3 cursor-pointer" onclick="document.querySelectorAll('#radio-group .ds-radio').forEach(r=>r.classList.remove('checked'));this.querySelector('.ds-radio').classList.add('checked')">
+        <div class="ds-radio checked"></div>
+        <span class="text-sm">Claude Opus</span>
+      </label>
+      <label class="flex items-center gap-3 cursor-pointer" onclick="document.querySelectorAll('#radio-group .ds-radio').forEach(r=>r.classList.remove('checked'));this.querySelector('.ds-radio').classList.add('checked')">
+        <div class="ds-radio"></div>
+        <span class="text-sm">Claude Sonnet</span>
+      </label>
+      <label class="flex items-center gap-3 cursor-pointer" onclick="document.querySelectorAll('#radio-group .ds-radio').forEach(r=>r.classList.remove('checked'));this.querySelector('.ds-radio').classList.add('checked')">
+        <div class="ds-radio"></div>
+        <span class="text-sm">GPT-4o</span>
+      </label>
+    </div>
+  </div>
+</section>
+
+<!-- Range Slider -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Range Slider</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Slider input for numeric ranges.</p>
+  <div class="p-6 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+    <div class="max-w-sm">
+      <div class="flex items-center justify-between mb-2">
+        <label class="ds-label" style="margin-bottom:0">Temperature</label>
+        <span class="text-sm font-mono" style="color:var(--app-accent)" id="range-val">0.7</span>
+      </div>
+      <input type="range" min="0" max="2" step="0.1" value="0.7" class="w-full accent-[var(--app-accent)]" oninput="document.getElementById('range-val').textContent=this.value">
+      <div class="flex justify-between text-xs mt-1" style="color:var(--app-muted)">
+        <span>Precise (0)</span>
+        <span>Creative (2)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Form Field Pattern -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Form Field Pattern</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Complete form with labels, inputs, helpers, and validation.</p>
+  <div class="p-6 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+    <form class="space-y-5 max-w-md" onsubmit="return false">
+      <div>
+        <label class="ds-label">Space Name <span style="color:var(--app-error)">*</span></label>
+        <input type="text" class="ds-input" placeholder="my-project" value="construct-brain">
+        <p class="ds-helper" style="color:var(--app-muted)">Lowercase letters, numbers, and hyphens only.</p>
+      </div>
+      <div>
+        <label class="ds-label">Description</label>
+        <textarea class="ds-input" rows="3" placeholder="Optional description for this space..."></textarea>
+      </div>
+      <div>
+        <label class="ds-label">Visibility</label>
+        <select class="ds-input ds-select">
+          <option>Private</option>
+          <option>Team</option>
+          <option>Public</option>
+        </select>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="ds-checkbox checked" onclick="this.classList.toggle('checked')">
+          <svg class="size-3" fill="none" viewBox="0 0 24 24" stroke="var(--app-accent-foreground)" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <span class="text-sm">Initialize with README</span>
+      </div>
+      <div class="flex gap-3 pt-2">
+        <button type="submit" class="px-4 py-2 rounded-lg text-sm font-medium" style="background:var(--app-accent);color:var(--app-accent-foreground)">Create Space</button>
+        <button type="button" class="px-4 py-2 rounded-lg text-sm font-medium border border-[var(--app-border)]" style="background:transparent;color:var(--app-foreground)">Cancel</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+</main></div><script>renderSidebar('inputs.html');</script></body></html>

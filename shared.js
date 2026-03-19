@@ -22,38 +22,75 @@ const THEMES = [
   { id: 'hc-light', name: 'HC Light', mode: 'light', bg: '#ffffff', fg: '#000000', muted: '#808080', accent: '#0000ff', accentFg: '#ffffff' },
 ];
 
+// Track current theme
+let _currentThemeId = null;
+
 function applyTheme(theme) {
-  const r = document.documentElement.style;
-  r.setProperty('--app-background', theme.bg);
-  r.setProperty('--app-foreground', theme.fg);
-  r.setProperty('--app-muted', theme.muted);
-  r.setProperty('--app-accent', theme.accent);
-  r.setProperty('--app-accent-foreground', theme.accentFg);
-  // Derive surface/card/border/input from bg
+  const root = document.documentElement;
   const isDark = theme.mode === 'dark';
-  r.setProperty('--app-border', isDark ? lighten(theme.bg, 15) : darken(theme.bg, 10));
-  r.setProperty('--app-surface', isDark ? lighten(theme.bg, 5) : darken(theme.bg, 2));
-  r.setProperty('--app-card', isDark ? lighten(theme.bg, 8) : theme.bg);
-  r.setProperty('--app-input-bg', isDark ? lighten(theme.bg, 12) : darken(theme.bg, 4));
-  document.body.className = isDark ? 'dark min-h-screen' : 'min-h-screen';
+
+  // Set all core CSS variables on documentElement
+  root.style.setProperty('--app-background', theme.bg);
+  root.style.setProperty('--app-foreground', theme.fg);
+  root.style.setProperty('--app-muted', theme.muted);
+  root.style.setProperty('--app-accent', theme.accent);
+  root.style.setProperty('--app-accent-foreground', theme.accentFg);
+
+  // Derive surface/card/border/input using simple fixed offsets
+  const [bgR, bgG, bgB] = hexToRgb(theme.bg);
+
+  if (isDark) {
+    // For dark themes: lighten by adding fixed amounts
+    root.style.setProperty('--app-border', rgbToHex(
+      Math.min(255, bgR + 30), Math.min(255, bgG + 30), Math.min(255, bgB + 30)
+    ));
+    root.style.setProperty('--app-surface', rgbToHex(
+      Math.min(255, bgR + 10), Math.min(255, bgG + 10), Math.min(255, bgB + 10)
+    ));
+    root.style.setProperty('--app-card', rgbToHex(
+      Math.min(255, bgR + 16), Math.min(255, bgG + 16), Math.min(255, bgB + 16)
+    ));
+    root.style.setProperty('--app-input-bg', rgbToHex(
+      Math.min(255, bgR + 24), Math.min(255, bgG + 24), Math.min(255, bgB + 24)
+    ));
+  } else {
+    // For light themes: darken by subtracting fixed amounts
+    root.style.setProperty('--app-border', rgbToHex(
+      Math.max(0, bgR - 20), Math.max(0, bgG - 20), Math.max(0, bgB - 20)
+    ));
+    root.style.setProperty('--app-surface', rgbToHex(
+      Math.max(0, bgR - 5), Math.max(0, bgG - 5), Math.max(0, bgB - 5)
+    ));
+    root.style.setProperty('--app-card', theme.bg);
+    root.style.setProperty('--app-input-bg', rgbToHex(
+      Math.max(0, bgR - 12), Math.max(0, bgG - 12), Math.max(0, bgB - 12)
+    ));
+  }
+
+  // Toggle body dark class based on theme mode
+  if (isDark) {
+    document.body.classList.add('dark');
+  } else {
+    document.body.classList.remove('dark');
+  }
+
+  // Preserve other classes like min-h-screen
+  if (!document.body.classList.contains('min-h-screen')) {
+    document.body.classList.add('min-h-screen');
+  }
+
+  // Track and re-render switcher to show active state
+  _currentThemeId = theme.id;
+  renderThemeSwitcher();
 }
 
-function lighten(hex, pct) {
-  const [r,g,b] = hexToRgb(hex);
-  const f = pct / 100;
-  return rgbToHex(Math.min(255, r + 255*f|0), Math.min(255, g + 255*f|0), Math.min(255, b + 255*f|0));
-}
-function darken(hex, pct) {
-  const [r,g,b] = hexToRgb(hex);
-  const f = 1 - pct / 100;
-  return rgbToHex(r*f|0, g*f|0, b*f|0);
-}
 function hexToRgb(hex) {
-  const h = hex.replace('#','');
-  return [parseInt(h.substr(0,2),16), parseInt(h.substr(2,2),16), parseInt(h.substr(4,2),16)];
+  const h = hex.replace('#', '');
+  return [parseInt(h.substr(0, 2), 16), parseInt(h.substr(2, 2), 16), parseInt(h.substr(4, 2), 16)];
 }
-function rgbToHex(r,g,b) {
-  return '#' + [r,g,b].map(x => x.toString(16).padStart(2,'0')).join('');
+
+function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(x => Math.round(x).toString(16).padStart(2, '0')).join('');
 }
 
 // Sidebar generator
@@ -104,13 +141,17 @@ function renderSidebar(activePage) {
 function renderThemeSwitcher() {
   const el = document.getElementById('ds-theme-switcher');
   if (!el) return;
-  el.innerHTML = THEMES.map(t => `
-    <button onclick="applyTheme(THEMES.find(x=>x.id==='${t.id}'))" class="px-2 py-1 rounded text-[10px] font-medium border transition-colors" style="border-color:var(--app-border);color:var(--app-muted);background:${t.bg}" title="${t.name}">
+  el.innerHTML = THEMES.map(t => {
+    const isActive = _currentThemeId === t.id;
+    const activeRing = isActive ? `outline:2px solid ${t.accent};outline-offset:2px;` : '';
+    const activeOpacity = isActive ? '1' : '0.7';
+    return `<button onclick="applyTheme(THEMES.find(x=>x.id==='${t.id}'))" class="px-2 py-1 rounded text-[10px] font-medium border transition-colors" style="border-color:${isActive ? t.accent : 'var(--app-border)'};color:var(--app-muted);background:${t.bg};opacity:${activeOpacity};${activeRing}" title="${t.name}">
       <span style="color:${t.accent}">${t.name}</span>
-    </button>
-  `).join('');
+    </button>`;
+  }).join('');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderThemeSwitcher();
+  // Apply default theme (vs-dark, index 2) on page load
+  applyTheme(THEMES[2]);
 });

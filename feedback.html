@@ -1,25 +1,205 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Feedback — Construct Design System</title>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-<link rel="stylesheet" href="tokens.css"><script src="shared.js"></script>
-</head>
-<body class="dark min-h-screen">
-<div class="flex min-h-screen">
-  <nav id="ds-sidebar" class="w-56 shrink-0 border-r border-[var(--app-border)] bg-[var(--app-surface)] flex flex-col fixed top-0 left-0 bottom-0 overflow-y-auto"></nav>
-  <main class="ml-56 flex-1 px-10 py-8 max-w-4xl">
-    <div class="fixed top-4 right-4 flex flex-wrap gap-1 max-w-md z-50" id="ds-theme-switcher"></div>
-    <div class="mb-8">
-      <p class="text-[10px] uppercase tracking-widest mb-1" style="color:var(--app-accent)">Components</p>
-      <h1 class="text-3xl font-bold">Feedback</h1>
-      <p class="text-sm mt-1" style="color:var(--app-muted)">Badges, alerts, toasts, progress.</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Feedback — Construct DS</title><link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><link rel="stylesheet" href="tokens.css"><script src="shared.js"></script>
+<style>
+  @keyframes skeleton-pulse { 0%,100% { opacity:1 } 50% { opacity:0.4 } }
+  .skeleton { animation: skeleton-pulse 1.5s ease-in-out infinite; border-radius:0.375rem; }
+  @keyframes slide-in { from { transform:translateX(100%); opacity:0 } to { transform:translateX(0); opacity:1 } }
+  .toast-enter { animation: slide-in 0.3s ease-out; }
+</style>
+</head><body class="dark min-h-screen"><div class="flex min-h-screen"><nav id="ds-sidebar" class="w-56 shrink-0 border-r border-[var(--app-border)] bg-[var(--app-surface)] flex flex-col fixed top-0 left-0 bottom-0 overflow-y-auto"></nav><main class="ml-56 flex-1 px-10 py-8 max-w-4xl">
+<div class="fixed top-4 right-4 flex flex-wrap gap-1 max-w-md z-50" id="ds-theme-switcher"></div>
+<div class="mb-8"><p class="text-[10px] uppercase tracking-widest mb-1" style="color:var(--app-accent)">Components</p><h1 class="text-3xl font-bold">Feedback</h1><p class="text-sm mt-1" style="color:var(--app-muted)">Badges, alerts, toasts, progress bars, skeletons, and empty states.</p></div>
+
+<!-- Badges -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Badges</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Inline labels for status, categories, and counts.</p>
+  <div class="p-6 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+    <p class="text-xs font-mono mb-3" style="color:var(--app-accent)">Filled</p>
+    <div class="flex flex-wrap gap-2 mb-5">
+      <span class="text-xs font-medium px-2.5 py-1 rounded-full" style="background:var(--app-input-bg);color:var(--app-foreground)">Default</span>
+      <span class="text-xs font-medium px-2.5 py-1 rounded-full" style="background:color-mix(in srgb, var(--app-accent) 15%, transparent);color:var(--app-accent)">Accent</span>
+      <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-green-500/15 text-green-500">Success</span>
+      <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-yellow-500/15 text-yellow-500">Warning</span>
+      <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-red-500/15 text-red-500">Danger</span>
     </div>
-    <section class="mb-8"><p class="text-sm" style="color:var(--app-muted)">Content coming — use the theme switcher to preview tokens across all themes.</p></section>
-  </main>
-</div>
-<script>renderSidebar('feedback.html');</script>
-</body>
-</html>
+    <p class="text-xs font-mono mb-3" style="color:var(--app-accent)">Outline</p>
+    <div class="flex flex-wrap gap-2 mb-5">
+      <span class="text-xs font-medium px-2.5 py-1 rounded-full border border-[var(--app-border)]" style="color:var(--app-foreground)">Default</span>
+      <span class="text-xs font-medium px-2.5 py-1 rounded-full border" style="border-color:var(--app-accent);color:var(--app-accent)">Accent</span>
+      <span class="text-xs font-medium px-2.5 py-1 rounded-full border border-green-500 text-green-500">Success</span>
+      <span class="text-xs font-medium px-2.5 py-1 rounded-full border border-yellow-500 text-yellow-500">Warning</span>
+      <span class="text-xs font-medium px-2.5 py-1 rounded-full border border-red-500 text-red-500">Danger</span>
+    </div>
+    <p class="text-xs font-mono mb-3" style="color:var(--app-accent)">Dot badges</p>
+    <div class="flex flex-wrap gap-3">
+      <span class="text-xs font-medium px-2.5 py-1 rounded-full flex items-center gap-1.5" style="background:var(--app-input-bg)"><span class="size-1.5 rounded-full bg-green-500"></span> Online</span>
+      <span class="text-xs font-medium px-2.5 py-1 rounded-full flex items-center gap-1.5" style="background:var(--app-input-bg)"><span class="size-1.5 rounded-full bg-yellow-500"></span> Away</span>
+      <span class="text-xs font-medium px-2.5 py-1 rounded-full flex items-center gap-1.5" style="background:var(--app-input-bg)"><span class="size-1.5 rounded-full bg-red-500"></span> Busy</span>
+      <span class="text-xs font-medium px-2.5 py-1 rounded-full flex items-center gap-1.5" style="background:var(--app-input-bg)"><span class="size-1.5 rounded-full" style="background:var(--app-muted)"></span> Offline</span>
+    </div>
+  </div>
+</section>
+
+<!-- Alerts -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Alerts</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Contextual messages with colored left border for different severity levels.</p>
+  <div class="space-y-3">
+    <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] flex gap-3" style="border-left:3px solid #3b82f6">
+      <svg class="size-5 text-blue-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <div>
+        <p class="text-sm font-medium text-blue-500">Information</p>
+        <p class="text-sm mt-0.5" style="color:var(--app-muted)">Your workspace is running on the latest version. No action needed.</p>
+      </div>
+    </div>
+    <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] flex gap-3" style="border-left:3px solid #22c55e">
+      <svg class="size-5 text-green-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <div>
+        <p class="text-sm font-medium text-green-500">Success</p>
+        <p class="text-sm mt-0.5" style="color:var(--app-muted)">Space created successfully. You can now start adding agents and tools.</p>
+      </div>
+    </div>
+    <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] flex gap-3" style="border-left:3px solid #f59e0b">
+      <svg class="size-5 text-yellow-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      <div>
+        <p class="text-sm font-medium text-yellow-500">Warning</p>
+        <p class="text-sm mt-0.5" style="color:var(--app-muted)">API key expires in 3 days. Regenerate it to avoid service disruption.</p>
+      </div>
+    </div>
+    <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] flex gap-3" style="border-left:3px solid #ef4444">
+      <svg class="size-5 text-red-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <div>
+        <p class="text-sm font-medium text-red-500">Error</p>
+        <p class="text-sm mt-0.5" style="color:var(--app-muted)">Failed to connect to the brain service. Check your network connection and try again.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Toast Notifications -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Toast Notifications</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Ephemeral notifications that appear in the corner. Click the buttons to preview.</p>
+  <div class="p-6 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+    <div class="flex flex-wrap gap-2 mb-4">
+      <button class="px-3 py-1.5 rounded-lg text-xs font-medium" style="background:var(--app-accent);color:var(--app-accent-foreground)" onclick="showToast('Changes saved successfully.','success')">Show Success Toast</button>
+      <button class="px-3 py-1.5 rounded-lg text-xs font-medium bg-red-500 text-white" onclick="showToast('Failed to save changes.','error')">Show Error Toast</button>
+      <button class="px-3 py-1.5 rounded-lg text-xs font-medium" style="background:var(--app-input-bg);color:var(--app-foreground)" onclick="showToast('New version available.','info')">Show Info Toast</button>
+    </div>
+    <p class="text-xs font-mono mb-3" style="color:var(--app-accent)">Static examples</p>
+    <div class="space-y-2 max-w-sm">
+      <div class="p-3 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] flex items-center gap-3 shadow-lg">
+        <svg class="size-5 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <p class="text-sm flex-1">Changes saved successfully.</p>
+        <button class="text-xs" style="color:var(--app-muted)">&times;</button>
+      </div>
+      <div class="p-3 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] flex items-center gap-3 shadow-lg">
+        <svg class="size-5 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <p class="text-sm flex-1">Failed to delete space.</p>
+        <button class="text-xs" style="color:var(--app-muted)">&times;</button>
+      </div>
+    </div>
+  </div>
+  <div id="toast-container" class="fixed bottom-4 right-4 space-y-2 z-50"></div>
+</section>
+
+<!-- Progress Bar -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Progress Bar</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Determinate progress indicators for uploads, tasks, and quotas.</p>
+  <div class="p-6 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] space-y-5">
+    <div>
+      <div class="flex justify-between text-xs mb-1.5"><span>Uploading files...</span><span style="color:var(--app-muted)">45%</span></div>
+      <div class="h-2 rounded-full" style="background:var(--app-input-bg)"><div class="h-2 rounded-full" style="background:var(--app-accent);width:45%"></div></div>
+    </div>
+    <div>
+      <div class="flex justify-between text-xs mb-1.5"><span>Token usage</span><span style="color:var(--app-muted)">847k / 1M</span></div>
+      <div class="h-2 rounded-full" style="background:var(--app-input-bg)"><div class="h-2 rounded-full bg-yellow-500" style="width:85%"></div></div>
+    </div>
+    <div>
+      <div class="flex justify-between text-xs mb-1.5"><span>Build complete</span><span style="color:var(--app-muted)">100%</span></div>
+      <div class="h-2 rounded-full" style="background:var(--app-input-bg)"><div class="h-2 rounded-full bg-green-500" style="width:100%"></div></div>
+    </div>
+    <div>
+      <div class="flex justify-between text-xs mb-1.5"><span>Storage quota exceeded</span><span style="color:var(--app-muted)">112%</span></div>
+      <div class="h-2 rounded-full" style="background:var(--app-input-bg)"><div class="h-2 rounded-full bg-red-500" style="width:100%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Skeleton Loader -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Skeleton Loader</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Placeholder content while data is loading.</p>
+  <div class="p-6 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+    <p class="text-xs font-mono mb-4" style="color:var(--app-accent)">Card skeleton</p>
+    <div class="space-y-4 max-w-sm">
+      <div class="flex items-center gap-3">
+        <div class="size-10 rounded-full skeleton" style="background:var(--app-input-bg)"></div>
+        <div class="flex-1 space-y-2">
+          <div class="h-3 rounded skeleton w-3/4" style="background:var(--app-input-bg)"></div>
+          <div class="h-3 rounded skeleton w-1/2" style="background:var(--app-input-bg)"></div>
+        </div>
+      </div>
+      <div class="h-3 rounded skeleton" style="background:var(--app-input-bg)"></div>
+      <div class="h-3 rounded skeleton w-5/6" style="background:var(--app-input-bg)"></div>
+      <div class="h-3 rounded skeleton w-2/3" style="background:var(--app-input-bg)"></div>
+    </div>
+    <p class="text-xs font-mono mb-4 mt-6" style="color:var(--app-accent)">Table skeleton</p>
+    <div class="space-y-3">
+      <div class="flex gap-4">
+        <div class="h-3 rounded skeleton w-1/4" style="background:var(--app-input-bg)"></div>
+        <div class="h-3 rounded skeleton w-1/3" style="background:var(--app-input-bg)"></div>
+        <div class="h-3 rounded skeleton w-1/6" style="background:var(--app-input-bg)"></div>
+        <div class="h-3 rounded skeleton w-1/5" style="background:var(--app-input-bg)"></div>
+      </div>
+      <div class="flex gap-4">
+        <div class="h-3 rounded skeleton w-1/4" style="background:var(--app-input-bg)"></div>
+        <div class="h-3 rounded skeleton w-1/3" style="background:var(--app-input-bg)"></div>
+        <div class="h-3 rounded skeleton w-1/6" style="background:var(--app-input-bg)"></div>
+        <div class="h-3 rounded skeleton w-1/5" style="background:var(--app-input-bg)"></div>
+      </div>
+      <div class="flex gap-4">
+        <div class="h-3 rounded skeleton w-1/4" style="background:var(--app-input-bg)"></div>
+        <div class="h-3 rounded skeleton w-1/3" style="background:var(--app-input-bg)"></div>
+        <div class="h-3 rounded skeleton w-1/6" style="background:var(--app-input-bg)"></div>
+        <div class="h-3 rounded skeleton w-1/5" style="background:var(--app-input-bg)"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Empty State -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Empty State</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Placeholder for when no content is available.</p>
+  <div class="p-10 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] text-center border-dashed">
+    <svg class="size-12 mx-auto mb-4" style="color:var(--app-muted)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
+    <h3 class="text-base font-semibold mb-1">No spaces yet</h3>
+    <p class="text-sm mb-4" style="color:var(--app-muted)">Get started by creating your first space. Spaces contain your code, docs, and AI agents.</p>
+    <button class="px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center gap-2" style="background:var(--app-accent);color:var(--app-accent-foreground)">
+      <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+      Create Space
+    </button>
+  </div>
+</section>
+
+<script>
+function showToast(msg, type) {
+  const container = document.getElementById('toast-container');
+  const colors = { success:'#22c55e', error:'#ef4444', info:'#3b82f6' };
+  const icons = {
+    success:'<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+    error:'<path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+    info:'<path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>'
+  };
+  const toast = document.createElement('div');
+  toast.className = 'p-3 rounded-lg border flex items-center gap-3 shadow-lg toast-enter';
+  toast.style.cssText = 'border-color:var(--app-border);background:var(--app-card);min-width:280px';
+  toast.innerHTML = '<svg class="size-5 shrink-0" style="color:'+colors[type]+'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">'+icons[type]+'</svg><p class="text-sm flex-1">'+msg+'</p><button class="text-xs" style="color:var(--app-muted)" onclick="this.parentElement.remove()">&times;</button>';
+  container.appendChild(toast);
+  setTimeout(function(){ toast.remove(); }, 3000);
+}
+</script>
+
+</main></div><script>renderSidebar('feedback.html');</script></body></html>

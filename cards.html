@@ -1,25 +1,172 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cards — Construct Design System</title>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-<link rel="stylesheet" href="tokens.css"><script src="shared.js"></script>
-</head>
-<body class="dark min-h-screen">
-<div class="flex min-h-screen">
-  <nav id="ds-sidebar" class="w-56 shrink-0 border-r border-[var(--app-border)] bg-[var(--app-surface)] flex flex-col fixed top-0 left-0 bottom-0 overflow-y-auto"></nav>
-  <main class="ml-56 flex-1 px-10 py-8 max-w-4xl">
-    <div class="fixed top-4 right-4 flex flex-wrap gap-1 max-w-md z-50" id="ds-theme-switcher"></div>
-    <div class="mb-8">
-      <p class="text-[10px] uppercase tracking-widest mb-1" style="color:var(--app-accent)">Components</p>
-      <h1 class="text-3xl font-bold">Cards</h1>
-      <p class="text-sm mt-1" style="color:var(--app-muted)">Card styles, interactive states.</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Cards — Construct DS</title><link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><link rel="stylesheet" href="tokens.css"><script src="shared.js"></script></head><body class="dark min-h-screen"><div class="flex min-h-screen"><nav id="ds-sidebar" class="w-56 shrink-0 border-r border-[var(--app-border)] bg-[var(--app-surface)] flex flex-col fixed top-0 left-0 bottom-0 overflow-y-auto"></nav><main class="ml-56 flex-1 px-10 py-8 max-w-4xl">
+<div class="fixed top-4 right-4 flex flex-wrap gap-1 max-w-md z-50" id="ds-theme-switcher"></div>
+<div class="mb-8"><p class="text-[10px] uppercase tracking-widest mb-1" style="color:var(--app-accent)">Components</p><h1 class="text-3xl font-bold">Cards</h1><p class="text-sm mt-1" style="color:var(--app-muted)">Card layouts for content grouping, stats, media, and settings sections.</p></div>
+
+<!-- Default Card -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Default Card</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Standard card with border and card background.</p>
+  <div class="p-5 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+    <h3 class="text-base font-semibold mb-1">Project Overview</h3>
+    <p class="text-sm" style="color:var(--app-muted)">This is a default card component used for grouping related content. It uses var(--app-card) for the background and var(--app-border) for the border.</p>
+    <div class="flex gap-2 mt-4">
+      <span class="text-xs px-2 py-0.5 rounded-full" style="background:color-mix(in srgb, var(--app-accent) 15%, transparent);color:var(--app-accent)">Active</span>
+      <span class="text-xs px-2 py-0.5 rounded-full" style="background:var(--app-input-bg);color:var(--app-muted)">3 members</span>
     </div>
-    <section class="mb-8"><p class="text-sm" style="color:var(--app-muted)">Content coming — use the theme switcher to preview tokens across all themes.</p></section>
-  </main>
-</div>
-<script>renderSidebar('cards.html');</script>
-</body>
-</html>
+  </div>
+</section>
+
+<!-- Accent-Bordered Card -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Accent-Bordered Card</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Card with a left accent border for emphasis or categorization.</p>
+  <div class="grid gap-3">
+    <div class="p-5 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]" style="border-left:3px solid var(--app-accent)">
+      <h3 class="text-base font-semibold mb-1">Important Update</h3>
+      <p class="text-sm" style="color:var(--app-muted)">Your workspace has been migrated to the new infrastructure. All services are running normally.</p>
+    </div>
+    <div class="p-5 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]" style="border-left:3px solid #22c55e">
+      <h3 class="text-base font-semibold mb-1">Deployment Successful</h3>
+      <p class="text-sm" style="color:var(--app-muted)">v2.4.1 deployed to production at 14:32 UTC. All health checks passing.</p>
+    </div>
+    <div class="p-5 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]" style="border-left:3px solid #f59e0b">
+      <h3 class="text-base font-semibold mb-1">Usage Warning</h3>
+      <p class="text-sm" style="color:var(--app-muted)">API usage is at 85% of your monthly limit. Consider upgrading your plan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Interactive Card -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Interactive Card</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Hoverable card with cursor pointer, used for clickable items.</p>
+  <div class="grid grid-cols-2 gap-3">
+    <div class="p-5 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] cursor-pointer transition-all hover:border-[var(--app-accent)]" style="transition:border-color 0.15s, box-shadow 0.15s" onmouseover="this.style.boxShadow='0 0 0 1px var(--app-accent)'" onmouseout="this.style.boxShadow='none'">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="size-10 rounded-lg flex items-center justify-center" style="background:color-mix(in srgb, var(--app-accent) 15%, transparent)">
+          <svg class="size-5" style="color:var(--app-accent)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold">Code Space</h3>
+          <p class="text-xs" style="color:var(--app-muted)">construct-brain</p>
+        </div>
+      </div>
+      <p class="text-xs" style="color:var(--app-muted)">Last edited 2 hours ago</p>
+    </div>
+    <div class="p-5 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] cursor-pointer transition-all hover:border-[var(--app-accent)]" style="transition:border-color 0.15s, box-shadow 0.15s" onmouseover="this.style.boxShadow='0 0 0 1px var(--app-accent)'" onmouseout="this.style.boxShadow='none'">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="size-10 rounded-lg flex items-center justify-center" style="background:color-mix(in srgb, #a78bfa 15%, transparent)">
+          <svg class="size-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold">Design Space</h3>
+          <p class="text-xs" style="color:var(--app-muted)">ui-components</p>
+        </div>
+      </div>
+      <p class="text-xs" style="color:var(--app-muted)">Last edited 5 mins ago</p>
+    </div>
+  </div>
+</section>
+
+<!-- Stat Cards -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Stat Cards</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Compact cards for displaying key metrics.</p>
+  <div class="grid grid-cols-4 gap-3">
+    <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+      <p class="text-xs" style="color:var(--app-muted)">Total Spaces</p>
+      <p class="text-2xl font-bold mt-1">24</p>
+      <p class="text-xs mt-1 text-green-500">+3 this week</p>
+    </div>
+    <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+      <p class="text-xs" style="color:var(--app-muted)">API Calls</p>
+      <p class="text-2xl font-bold mt-1">12.4k</p>
+      <p class="text-xs mt-1 text-green-500">+18% vs last</p>
+    </div>
+    <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+      <p class="text-xs" style="color:var(--app-muted)">Tokens Used</p>
+      <p class="text-2xl font-bold mt-1">847k</p>
+      <p class="text-xs mt-1 text-yellow-500">85% of limit</p>
+    </div>
+    <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+      <p class="text-xs" style="color:var(--app-muted)">Avg Latency</p>
+      <p class="text-2xl font-bold mt-1">142ms</p>
+      <p class="text-xs mt-1 text-green-500">-12ms improved</p>
+    </div>
+  </div>
+</section>
+
+<!-- Media Card -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Media Card</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Card with a colored top bar representing the space or category color.</p>
+  <div class="grid grid-cols-3 gap-3">
+    <div class="rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] overflow-hidden">
+      <div class="h-2" style="background:var(--app-accent)"></div>
+      <div class="p-4">
+        <h3 class="text-sm font-semibold mb-1">Brain Refactor</h3>
+        <p class="text-xs" style="color:var(--app-muted)">Restructured agent system with builtin and space-specific agents.</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="size-5 rounded-full bg-orange-400 flex items-center justify-center text-[8px] font-bold text-white">FR</div>
+          <span class="text-xs" style="color:var(--app-muted)">Mar 10</span>
+        </div>
+      </div>
+    </div>
+    <div class="rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] overflow-hidden">
+      <div class="h-2 bg-emerald-500"></div>
+      <div class="p-4">
+        <h3 class="text-sm font-semibold mb-1">SDK TypeScript</h3>
+        <p class="text-xs" style="color:var(--app-muted)">Updated to Zod v4 with new validation patterns and type exports.</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="size-5 rounded-full bg-blue-400 flex items-center justify-center text-[8px] font-bold text-white">AK</div>
+          <span class="text-xs" style="color:var(--app-muted)">Mar 15</span>
+        </div>
+      </div>
+    </div>
+    <div class="rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] overflow-hidden">
+      <div class="h-2 bg-violet-500"></div>
+      <div class="p-4">
+        <h3 class="text-sm font-semibold mb-1">Design System</h3>
+        <p class="text-xs" style="color:var(--app-muted)">Component library with theme support and CSS variable tokens.</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="size-5 rounded-full bg-rose-400 flex items-center justify-center text-[8px] font-bold text-white">FR</div>
+          <span class="text-xs" style="color:var(--app-muted)">Mar 19</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section Block -->
+<section class="mb-10">
+  <h2 class="text-lg font-semibold mb-1">Section Block</h2>
+  <p class="text-sm mb-4" style="color:var(--app-muted)">Settings-style section with header, description, and contained controls.</p>
+  <div class="space-y-4">
+    <div class="p-5 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]">
+      <div class="flex items-center justify-between mb-4" style="border-bottom:1px solid var(--app-border);padding-bottom:0.75rem">
+        <div>
+          <h3 class="text-sm font-semibold">General Settings</h3>
+          <p class="text-xs" style="color:var(--app-muted)">Manage your workspace preferences</p>
+        </div>
+        <button class="px-3 py-1.5 rounded-lg text-xs font-medium" style="background:var(--app-accent);color:var(--app-accent-foreground)">Save</button>
+      </div>
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div><p class="text-sm">Workspace Name</p><p class="text-xs" style="color:var(--app-muted)">Used in URLs and references</p></div>
+          <input type="text" class="text-sm px-3 py-1.5 rounded-lg border border-[var(--app-border)] w-48" style="background:var(--app-input-bg);color:var(--app-foreground)" value="construct-main">
+        </div>
+        <div class="flex items-center justify-between" style="border-top:1px solid var(--app-border);padding-top:1rem">
+          <div><p class="text-sm">Auto-save</p><p class="text-xs" style="color:var(--app-muted)">Automatically save changes every 30 seconds</p></div>
+          <div class="w-10 h-[22px] rounded-full cursor-pointer relative" style="background:var(--app-accent)" onclick="this.classList.toggle('off')"><div class="absolute top-[2px] left-[2px] w-4 h-4 rounded-full bg-white" style="transform:translateX(18px)"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="p-5 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]" style="border-color:var(--app-error)">
+      <h3 class="text-sm font-semibold text-red-500 mb-1">Danger Zone</h3>
+      <p class="text-xs mb-3" style="color:var(--app-muted)">Irreversible actions that permanently affect your workspace.</p>
+      <button class="px-3 py-1.5 rounded-lg text-xs font-medium bg-red-500 text-white">Delete Workspace</button>
+    </div>
+  </div>
+</section>
+
+</main></div><script>renderSidebar('cards.html');</script></body></html>
