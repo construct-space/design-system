@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Colors — Construct DS</title><link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><link rel="stylesheet" href="tokens.css"><script src="shared.js"></script></head><body class="dark min-h-screen"><div class="flex min-h-screen"><nav id="ds-sidebar" class="w-56 shrink-0 border-r border-[var(--app-border)] bg-[var(--app-surface)] flex flex-col fixed top-0 left-0 bottom-0 overflow-y-auto"></nav><main class="ml-56 flex-1 px-10 py-8 max-w-4xl">
+<div class="fixed top-4 right-4 flex flex-wrap gap-1 max-w-md z-50" id="ds-theme-switcher"></div>
+<div class="mb-8"><p class="text-[10px] uppercase tracking-widest mb-1" style="color:var(--app-accent)">Foundation</p><h1 class="text-3xl font-bold">Colors</h1></div>
+
+<section class="mb-8">
+  <h2 class="text-lg font-semibold mb-4">Semantic Tokens</h2>
+  <div class="grid grid-cols-4 gap-3">
+    <div class="rounded-lg overflow-hidden border border-[var(--app-border)]"><div class="h-20" style="background:var(--app-accent)"></div><div class="p-3 bg-[var(--app-card)]"><p class="text-xs font-mono" style="color:var(--app-accent)">--app-accent</p><p class="text-[10px]" style="color:var(--app-muted)">Buttons, links, active</p></div></div>
+    <div class="rounded-lg overflow-hidden border border-[var(--app-border)]"><div class="h-20" style="background:var(--app-foreground)"></div><div class="p-3 bg-[var(--app-card)]"><p class="text-xs font-mono" style="color:var(--app-accent)">--app-foreground</p><p class="text-[10px]" style="color:var(--app-muted)">Primary text</p></div></div>
+    <div class="rounded-lg overflow-hidden border border-[var(--app-border)]"><div class="h-20" style="background:var(--app-muted)"></div><div class="p-3 bg-[var(--app-card)]"><p class="text-xs font-mono" style="color:var(--app-accent)">--app-muted</p><p class="text-[10px]" style="color:var(--app-muted)">Secondary text</p></div></div>
+    <div class="rounded-lg overflow-hidden border border-[var(--app-border)]"><div class="h-20" style="background:var(--app-border)"></div><div class="p-3 bg-[var(--app-card)]"><p class="text-xs font-mono" style="color:var(--app-accent)">--app-border</p><p class="text-[10px]" style="color:var(--app-muted)">Borders, dividers</p></div></div>
+    <div class="rounded-lg overflow-hidden border border-[var(--app-border)]"><div class="h-20 border border-[var(--app-border)]" style="background:var(--app-background)"></div><div class="p-3 bg-[var(--app-card)]"><p class="text-xs font-mono" style="color:var(--app-accent)">--app-background</p><p class="text-[10px]" style="color:var(--app-muted)">Page background</p></div></div>
+    <div class="rounded-lg overflow-hidden border border-[var(--app-border)]"><div class="h-20" style="background:var(--app-surface)"></div><div class="p-3 bg-[var(--app-card)]"><p class="text-xs font-mono" style="color:var(--app-accent)">--app-surface</p><p class="text-[10px]" style="color:var(--app-muted)">Sidebar, sections</p></div></div>
+    <div class="rounded-lg overflow-hidden border border-[var(--app-border)]"><div class="h-20" style="background:var(--app-card)"></div><div class="p-3 bg-[var(--app-card)]"><p class="text-xs font-mono" style="color:var(--app-accent)">--app-card</p><p class="text-[10px]" style="color:var(--app-muted)">Card backgrounds</p></div></div>
+    <div class="rounded-lg overflow-hidden border border-[var(--app-border)]"><div class="h-20" style="background:var(--app-input-bg)"></div><div class="p-3 bg-[var(--app-card)]"><p class="text-xs font-mono" style="color:var(--app-accent)">--app-input-bg</p><p class="text-[10px]" style="color:var(--app-muted)">Inputs, code blocks</p></div></div>
+  </div>
+</section>
+
+<section class="mb-8">
+  <h2 class="text-lg font-semibold mb-4">Status Colors</h2>
+  <div class="grid grid-cols-3 gap-3">
+    <div class="rounded-lg overflow-hidden border border-[var(--app-border)]"><div class="h-16 bg-green-500"></div><div class="p-3 bg-[var(--app-card)]"><p class="text-xs font-mono text-green-500">Success / #22c55e</p></div></div>
+    <div class="rounded-lg overflow-hidden border border-[var(--app-border)]"><div class="h-16 bg-yellow-500"></div><div class="p-3 bg-[var(--app-card)]"><p class="text-xs font-mono text-yellow-500">Warning / #f59e0b</p></div></div>
+    <div class="rounded-lg overflow-hidden border border-[var(--app-border)]"><div class="h-16 bg-red-500"></div><div class="p-3 bg-[var(--app-card)]"><p class="text-xs font-mono text-red-500">Error / #ef4444</p></div></div>
+  </div>
+</section>
+
+<section class="mb-8">
+  <h2 class="text-lg font-semibold mb-4">Space Colors</h2>
+  <div class="grid grid-cols-4 gap-3">
+    <div class="flex items-center gap-2 p-3 rounded-lg border border-[var(--app-border)]"><div class="size-4 rounded-full bg-orange-400"></div><span class="text-xs">Architect</span></div>
+    <div class="flex items-center gap-2 p-3 rounded-lg border border-[var(--app-border)]"><div class="size-4 rounded-full bg-emerald-400"></div><span class="text-xs">Code</span></div>
+    <div class="flex items-center gap-2 p-3 rounded-lg border border-[var(--app-border)]"><div class="size-4 rounded-full bg-violet-400"></div><span class="text-xs">Vibe</span></div>
+    <div class="flex items-center gap-2 p-3 rounded-lg border border-[var(--app-border)]"><div class="size-4 rounded-full bg-rose-400"></div><span class="text-xs">Design</span></div>
+    <div class="flex items-center gap-2 p-3 rounded-lg border border-[var(--app-border)]"><div class="size-4 rounded-full bg-red-400"></div><span class="text-xs">Git</span></div>
+    <div class="flex items-center gap-2 p-3 rounded-lg border border-[var(--app-border)]"><div class="size-4 rounded-full bg-slate-400"></div><span class="text-xs">Terminal</span></div>
+    <div class="flex items-center gap-2 p-3 rounded-lg border border-[var(--app-border)]"><div class="size-4 rounded-full bg-amber-400"></div><span class="text-xs">Tasks</span></div>
+    <div class="flex items-center gap-2 p-3 rounded-lg border border-[var(--app-border)]"><div class="size-4 rounded-full bg-green-400"></div><span class="text-xs">Chat</span></div>
+    <div class="flex items-center gap-2 p-3 rounded-lg border border-[var(--app-border)]"><div class="size-4 rounded-full bg-purple-400"></div><span class="text-xs">AI</span></div>
+    <div class="flex items-center gap-2 p-3 rounded-lg border border-[var(--app-border)]"><div class="size-4 rounded-full bg-sky-400"></div><span class="text-xs">Docs</span></div>
+    <div class="flex items-center gap-2 p-3 rounded-lg border border-[var(--app-border)]"><div class="size-4 rounded-full bg-yellow-400"></div><span class="text-xs">Notes</span></div>
+    <div class="flex items-center gap-2 p-3 rounded-lg border border-[var(--app-border)]"><div class="size-4 rounded-full bg-indigo-400"></div><span class="text-xs">Calendar</span></div>
+  </div>
+</section>
+
+<section class="mb-8">
+  <h2 class="text-lg font-semibold mb-4">Product Accents</h2>
+  <div class="grid grid-cols-3 gap-3">
+    <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]"><div class="size-8 rounded-lg mb-2" style="background:#FF2D55"></div><p class="text-xs font-semibold">App Default</p><p class="text-[10px] font-mono" style="color:var(--app-muted)">#FF2D55</p></div>
+    <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]"><div class="size-8 rounded-lg mb-2" style="background:#34C759"></div><p class="text-xs font-semibold">Dev Portal</p><p class="text-[10px] font-mono" style="color:var(--app-muted)">#34C759</p></div>
+    <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]"><div class="size-8 rounded-lg mb-2" style="background:#6366f1"></div><p class="text-xs font-semibold">Admin</p><p class="text-[10px] font-mono" style="color:var(--app-muted)">#6366f1</p></div>
+  </div>
+</section>
+
+</main></div><script>renderSidebar('colors.html');</script></body></html>

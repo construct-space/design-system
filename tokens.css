@@ -1,0 +1,41 @@
+/* Construct Design Tokens — CSS variables only, Tailwind handles utilities */
+
+:root {
+  --app-background: #ffffff;
+  --app-foreground: #1e293b;
+  --app-muted: #94a3b8;
+  --app-accent: #FF2D55;
+  --app-accent-foreground: #ffffff;
+  --app-border: #e2e8f0;
+  --app-surface: #f8fafc;
+  --app-card: #ffffff;
+  --app-input-bg: #f1f5f9;
+  --app-error: #ef4444;
+  --app-success: #22c55e;
+  --app-warning: #f59e0b;
+}
+
+.dark {
+  --app-background: #0a0a0a;
+  --app-foreground: #fafafa;
+  --app-muted: #71717a;
+  --app-accent: #FF2D55;
+  --app-accent-foreground: #ffffff;
+  --app-border: #27272a;
+  --app-surface: #111113;
+  --app-card: #18181b;
+  --app-input-bg: #1e1e22;
+  --app-error: #f87171;
+  --app-success: #4ade80;
+  --app-warning: #fbbf24;
+}
+
+[data-accent="admin"] { --app-accent: #6366f1; }
+[data-accent="devportal"] { --app-accent: #34C759; }
+
+body {
+  font-family: 'Rubik', sans-serif;
+  color: var(--app-foreground);
+  background: var(--app-background);
+  -webkit-font-smoothing: antialiased;
+}

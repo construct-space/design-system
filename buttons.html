@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buttons — Construct Design System</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="stylesheet" href="tokens.css"><script src="shared.js"></script>
+</head>
+<body class="dark min-h-screen">
+<div class="flex min-h-screen">
+  <nav id="ds-sidebar" class="w-56 shrink-0 border-r border-[var(--app-border)] bg-[var(--app-surface)] flex flex-col fixed top-0 left-0 bottom-0 overflow-y-auto"></nav>
+  <main class="ml-56 flex-1 px-10 py-8 max-w-4xl">
+    <div class="fixed top-4 right-4 flex flex-wrap gap-1 max-w-md z-50" id="ds-theme-switcher"></div>
+    <div class="mb-8">
+      <p class="text-[10px] uppercase tracking-widest mb-1" style="color:var(--app-accent)">Components</p>
+      <h1 class="text-3xl font-bold">Buttons</h1>
+      <p class="text-sm mt-1" style="color:var(--app-muted)">Button variants, sizes, and states.</p>
+    </div>
+    <section class="mb-8"><p class="text-sm" style="color:var(--app-muted)">Content coming — use the theme switcher to preview tokens across all themes.</p></section>
+  </main>
+</div>
+<script>renderSidebar('buttons.html');</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Themes — Construct Design System</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="stylesheet" href="tokens.css"><script src="shared.js"></script>
+</head>
+<body class="dark min-h-screen">
+<div class="flex min-h-screen">
+  <nav id="ds-sidebar" class="w-56 shrink-0 border-r border-[var(--app-border)] bg-[var(--app-surface)] flex flex-col fixed top-0 left-0 bottom-0 overflow-y-auto"></nav>
+  <main class="ml-56 flex-1 px-10 py-8 max-w-4xl">
+    <div class="fixed top-4 right-4 flex flex-wrap gap-1 max-w-md z-50" id="ds-theme-switcher"></div>
+    <div class="mb-8">
+      <p class="text-[10px] uppercase tracking-widest mb-1" style="color:var(--app-accent)">Foundation</p>
+      <h1 class="text-3xl font-bold">Themes</h1>
+      <p class="text-sm mt-1" style="color:var(--app-muted)">14 built-in themes. Switch live to preview.</p>
+    </div>
+
+    <section class="mb-8">
+      <h2 class="text-lg font-semibold mb-4">All Themes</h2>
+      <div class="grid grid-cols-3 gap-3" id="theme-grid"></div>
+      <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("theme-grid").innerHTML = THEMES.map(t => `
+          <button onclick="applyTheme(THEMES.find(x=>x.id===\x27${"\x24{t.id}"}\x27))" class="p-4 rounded-lg border border-[var(--app-border)] text-left transition-all hover:border-[var(--app-accent)] cursor-pointer" style="background:${"\x24{t.bg}"}">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="size-3 rounded-full" style="background:${"\x24{t.accent}"}"></div>
+              <span class="text-sm font-medium" style="color:${"\x24{t.fg}"}">${"\x24{t.name}"}</span>
+            </div>
+            <div class="flex gap-1">
+              <div class="h-2 flex-1 rounded" style="background:${"\x24{t.accent}"}"></div>
+              <div class="h-2 flex-1 rounded" style="background:${"\x24{t.muted}"}"></div>
+              <div class="h-2 flex-1 rounded" style="background:${"\x24{t.fg}"}"></div>
+            </div>
+            <p class="text-[10px] mt-2 font-mono" style="color:${"\x24{t.muted}"}">${"\x24{t.mode}"} · ${"\x24{t.accent}"}</p>
+          </button>
+        `).join("");
+      });
+      </script>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-lg font-semibold mb-4">Token Mapping</h2>
+      <div class="rounded-lg border border-[var(--app-border)] bg-[var(--app-card)] overflow-hidden">
+        <table class="w-full text-sm">
+          <thead><tr class="border-b border-[var(--app-border)]" style="background:var(--app-surface)"><th class="text-left px-4 py-2 text-xs font-medium uppercase tracking-wider" style="color:var(--app-muted)">Token</th><th class="text-left px-4 py-2 text-xs font-medium uppercase tracking-wider" style="color:var(--app-muted)">Usage</th><th class="px-4 py-2 text-xs font-medium uppercase tracking-wider text-right" style="color:var(--app-muted)">Preview</th></tr></thead>
+          <tbody class="divide-y divide-[var(--app-border)]">
+            <tr><td class="px-4 py-2 font-mono text-xs" style="color:var(--app-accent)">--app-background</td><td class="px-4 py-2 text-xs" style="color:var(--app-muted)">Page background</td><td class="px-4 py-2 text-right"><div class="inline-block size-6 rounded border border-[var(--app-border)]" style="background:var(--app-background)"></div></td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs" style="color:var(--app-accent)">--app-foreground</td><td class="px-4 py-2 text-xs" style="color:var(--app-muted)">Primary text</td><td class="px-4 py-2 text-right"><div class="inline-block size-6 rounded" style="background:var(--app-foreground)"></div></td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs" style="color:var(--app-accent)">--app-muted</td><td class="px-4 py-2 text-xs" style="color:var(--app-muted)">Secondary text, labels</td><td class="px-4 py-2 text-right"><div class="inline-block size-6 rounded" style="background:var(--app-muted)"></div></td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs" style="color:var(--app-accent)">--app-accent</td><td class="px-4 py-2 text-xs" style="color:var(--app-muted)">Brand, buttons, links</td><td class="px-4 py-2 text-right"><div class="inline-block size-6 rounded" style="background:var(--app-accent)"></div></td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs" style="color:var(--app-accent)">--app-border</td><td class="px-4 py-2 text-xs" style="color:var(--app-muted)">Borders, dividers</td><td class="px-4 py-2 text-right"><div class="inline-block size-6 rounded border-2" style="border-color:var(--app-border)"></div></td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs" style="color:var(--app-accent)">--app-surface</td><td class="px-4 py-2 text-xs" style="color:var(--app-muted)">Sidebar, elevated bg</td><td class="px-4 py-2 text-right"><div class="inline-block size-6 rounded" style="background:var(--app-surface)"></div></td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs" style="color:var(--app-accent)">--app-card</td><td class="px-4 py-2 text-xs" style="color:var(--app-muted)">Card backgrounds</td><td class="px-4 py-2 text-right"><div class="inline-block size-6 rounded border border-[var(--app-border)]" style="background:var(--app-card)"></div></td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs" style="color:var(--app-accent)">--app-input-bg</td><td class="px-4 py-2 text-xs" style="color:var(--app-muted)">Input fields, code blocks</td><td class="px-4 py-2 text-right"><div class="inline-block size-6 rounded" style="background:var(--app-input-bg)"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+<script>renderSidebar('themes.html');</script>
+</body>
+</html>

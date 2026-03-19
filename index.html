@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overview — Construct Design System</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="stylesheet" href="tokens.css"><script src="shared.js"></script>
+</head>
+<body class="dark min-h-screen">
+<div class="flex min-h-screen">
+  <nav id="ds-sidebar" class="w-56 shrink-0 border-r border-[var(--app-border)] bg-[var(--app-surface)] flex flex-col fixed top-0 left-0 bottom-0 overflow-y-auto"></nav>
+  <main class="ml-56 flex-1 px-10 py-8 max-w-4xl">
+    <div class="fixed top-4 right-4 flex flex-wrap gap-1 max-w-md z-50" id="ds-theme-switcher"></div>
+    <div class="mb-8">
+      <p class="text-[10px] uppercase tracking-widest mb-1" style="color:var(--app-accent)">Design System</p>
+      <h1 class="text-3xl font-bold">Construct UI</h1>
+      <p class="text-sm mt-1" style="color:var(--app-muted)">The visual language for the Construct ecosystem.</p>
+    </div>
+    <section class="mb-8">
+      <h2 class="text-lg font-semibold mb-4">Principles</h2>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]"><h3 class="text-sm font-semibold mb-1">Dark First</h3><p class="text-xs" style="color:var(--app-muted)">14 themes. Dark is default.</p></div>
+        <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]"><h3 class="text-sm font-semibold mb-1">Minimal Chrome</h3><p class="text-xs" style="color:var(--app-muted)">Content first. Subtle borders.</p></div>
+        <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]"><h3 class="text-sm font-semibold mb-1">One Token Set</h3><p class="text-xs" style="color:var(--app-muted)">Same CSS vars across all products.</p></div>
+      </div>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-lg font-semibold mb-4">Products</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]"><h3 class="text-sm font-semibold mb-1">Desktop App</h3><p class="text-xs" style="color:var(--app-muted)">Vue 3 + Tailwind. 45 components. Tauri 2.</p></div>
+        <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]"><h3 class="text-sm font-semibold mb-1">Website</h3><p class="text-xs" style="color:var(--app-muted)">Dart/Duxt SSR. Tailwind via CDN. construct.space</p></div>
+        <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]"><h3 class="text-sm font-semibold mb-1">Dev Portal</h3><p class="text-xs" style="color:var(--app-muted)">Go + HTML. Accent: <span class="text-green-500">#34C759</span></p></div>
+        <div class="p-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-card)]"><h3 class="text-sm font-semibold mb-1">Admin</h3><p class="text-xs" style="color:var(--app-muted)">Go + HTML. Accent: <span class="text-indigo-400">#6366f1</span></p></div>
+      </div>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-lg font-semibold mb-4">45 UI Components</h2>
+      <div class="flex flex-wrap gap-2">
+        <span class="px-2 py-1 rounded text-xs border border-[var(--app-border)]" style="color:var(--app-muted)" id="comp-list"></span>
+      </div>
+      <script>
+        const comps = ['Accordion','Alert','Avatar','Badge','Breadcrumb','Button','Calendar','Card','Checkbox','Chip','ColorPicker','ContextMenu','DashboardPanel','Drawer','Dropdown','DropdownMenu','Empty','FormField','Icon','Input','Kbd','Modal','Pagination','PanelSection','Popover','Progress','PropRow','RadioGroup','ScrollArea','Select','SelectMenu','Separator','Skeleton','Slideover','Slider','SplitPane','Switch','Table','Tabs','Textarea','Timeline','Toast','Tooltip','Tree'];
+        document.getElementById('comp-list').parentElement.innerHTML = comps.map(c => '<span class="px-2 py-1 rounded text-xs border" style="border-color:var(--app-border);color:var(--app-muted)">'+c+'</span>').join('');
+      </script>
+    </section>
+  </main>
+</div>
+<script>renderSidebar('index.html');</script>
+</body>
+</html>
