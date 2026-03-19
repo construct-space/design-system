@@ -1,0 +1,6 @@
+name: ds
+server: bp.construct.ninja
+port: 80
+build:
+    dockerfile: Dockerfile
+    context: .
