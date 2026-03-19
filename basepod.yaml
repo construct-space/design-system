@@ -1,4 +1,6 @@
 name: ds
 server: bp.construct.ninja
 type: static
-public: .
+public: dist
+build:
+  command: bun run build

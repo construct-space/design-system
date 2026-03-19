@@ -1,22 +1,6 @@
-/* Construct Design Tokens — CSS variables only, Tailwind handles utilities */
+/* Construct Design Tokens — applyTheme() in shared.js sets all values */
 
 :root {
-  --app-background: #ffffff;
-  --app-foreground: #1e293b;
-  --app-muted: #94a3b8;
-  --app-accent: #FF2D55;
-  --app-accent-foreground: #ffffff;
-  --app-border: #e2e8f0;
-  --app-surface: #f8fafc;
-  --app-card: #ffffff;
-  --app-input-bg: #f1f5f9;
-  --app-error: #ef4444;
-  --app-success: #22c55e;
-  --app-warning: #f59e0b;
-}
-
-.dark {
-  /* Defaults match vs-dark theme (bg #1e1e1e) — applyTheme() overrides these */
   --app-background: #1e1e1e;
   --app-foreground: #d4d4d4;
   --app-muted: #6b7280;
@@ -30,9 +14,6 @@
   --app-success: #4ade80;
   --app-warning: #fbbf24;
 }
-
-[data-accent="admin"] { --app-accent: #6366f1; }
-[data-accent="devportal"] { --app-accent: #34C759; }
 
 body {
   font-family: 'Rubik', sans-serif;
