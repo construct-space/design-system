@@ -24,7 +24,7 @@
       <script>
       document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("theme-grid").innerHTML = THEMES.map((t, i) => `
-          <button onclick="applyTheme(THEMES[${"\x24{i}"}])" class="p-4 rounded-lg border border-[var(--app-border)] text-left transition-all hover:border-[var(--app-accent)] cursor-pointer" style="background:${"\x24{t.bg}"}">`
+          <button onclick="applyTheme(THEMES[${"\x24{i}"}])" class="p-4 rounded-lg border border-[var(--app-border)] text-left transition-all hover:border-[var(--app-accent)] cursor-pointer" style="background:${"\x24{t.bg}"}">
             <div class="flex items-center gap-2 mb-2">
               <div class="size-3 rounded-full" style="background:${"\x24{t.accent}"}"></div>
               <span class="text-sm font-medium" style="color:${"\x24{t.fg}"}">${"\x24{t.name}"}</span>
