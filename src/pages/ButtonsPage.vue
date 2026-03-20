@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import SdkUsage from '../components/SdkUsage.vue'
+
+const sdkComponents = [
+  { name: 'Button', import: 'Button', usage: `<Button label="Save" variant="solid" color="primary" />\n<Button icon="i-lucide-plus" variant="ghost" size="xs" />\n<Button label="Delete" variant="soft" color="error" loading />` },
+]
 </script>
 
 <template>
@@ -21,5 +26,6 @@
       <button class="px-4 py-2 rounded-lg text-sm font-medium text-white" :style="{ background: 'var(--c-accent)' }">Default</button>
       <button class="px-6 py-3 rounded-lg text-base font-medium text-white" :style="{ background: 'var(--c-accent)' }">Large</button>
     </div>
+    <SdkUsage :components="sdkComponents" />
   </div>
 </template>

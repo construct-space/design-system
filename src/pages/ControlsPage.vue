@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import SdkUsage from '../components/SdkUsage.vue'
+
+const sdkComponents = [
+  { name: 'Switch', import: 'Switch', usage: `<Switch v-model="darkMode" label="Dark mode" size="md" />` },
+  { name: 'Select', import: 'Select', usage: `<Select v-model="lang" :options="['English', 'Spanish']" placeholder="Language" />` },
+  { name: 'Slider', import: 'Slider', usage: `<Slider v-model="volume" :min="0" :max="100" :step="5" />` },
+  { name: 'Accordion', import: 'Accordion', usage: `<Accordion :items="[\n  { label: 'Section 1', value: 's1', content: '...' },\n  { label: 'Section 2', value: 's2', content: '...' },\n]" type="single" />` },
+]
 
 const switchOn = ref(true)
 const switchOff = ref(false)
@@ -289,5 +297,6 @@ function toggleAccordion(index: number) {
         </div>
       </div>
     </div>
+    <SdkUsage :components="sdkComponents" />
   </div>
 </template>

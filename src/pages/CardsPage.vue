@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import SdkUsage from '../components/SdkUsage.vue'
+
+const sdkComponents = [
+  { name: 'Card', import: 'Card', usage: `<Card title="Stats" description="Monthly overview">\n  <template #body>Card content</template>\n</Card>` },
+  { name: 'DashboardPanel', import: 'DashboardPanel', usage: `<DashboardPanel :grow="true" :resizable="true">\n  <template #header>Panel Title</template>\n  <template #body>Content</template>\n</DashboardPanel>` },
+]
 </script>
 
 <template>
@@ -35,5 +41,6 @@
         <p class="text-2xl font-bold">{{ st.value }}</p>
       </div>
     </div>
+    <SdkUsage :components="sdkComponents" />
   </div>
 </template>

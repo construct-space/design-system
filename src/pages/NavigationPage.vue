@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import SdkUsage from '../components/SdkUsage.vue'
+
+const sdkComponents = [
+  { name: 'Tabs', import: 'Tabs', usage: `<Tabs v-model="activeTab" :items="[\n  { label: 'Overview', value: 'overview' },\n  { label: 'Settings', value: 'settings' },\n]" />` },
+  { name: 'Pagination', import: 'Pagination', usage: `<Pagination v-model="page" :total="100" :page-count="10" />` },
+]
 </script>
 
 <template>
@@ -29,5 +35,7 @@
       <button v-for="n in 5" :key="n" class="size-8 rounded-md text-sm flex items-center justify-center" :style="{ background: n === 2 ? 'var(--c-accent)' : 'transparent', color: n === 2 ? 'var(--c-accent-fg)' : 'var(--c-muted)' }">{{ n }}</button>
       <button class="px-3 py-1.5 rounded-md text-sm">Next</button>
     </div>
+
+    <SdkUsage :components="sdkComponents" />
   </div>
 </template>

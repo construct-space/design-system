@@ -7,25 +7,37 @@ export interface Page {
 }
 
 const pages: Page[] = [
+  // Foundation — tokens, visual language
   { id: 'overview', label: 'Overview', group: 'Foundation' },
   { id: 'colors', label: 'Colors', group: 'Foundation' },
   { id: 'typography', label: 'Typography', group: 'Foundation' },
   { id: 'themes', label: 'Themes', group: 'Foundation' },
   { id: 'logo', label: 'Logo & Brand', group: 'Foundation' },
-  { id: 'buttons', label: 'Buttons', group: 'Components' },
-  { id: 'inputs', label: 'Inputs', group: 'Components' },
-  { id: 'cards', label: 'Cards', group: 'Components' },
-  { id: 'controls', label: 'Controls', group: 'Components' },
-  { id: 'overlays', label: 'Overlays', group: 'Components' },
-  { id: 'feedback', label: 'Feedback', group: 'Components' },
-  { id: 'toast', label: 'Toast & Scroll', group: 'Components' },
-  { id: 'navigation', label: 'Navigation', group: 'Components' },
-  { id: 'data', label: 'Data Display', group: 'Components' },
+
+  // Inputs — form elements
+  { id: 'buttons', label: 'Buttons', group: 'Inputs' },
+  { id: 'inputs', label: 'Text Fields', group: 'Inputs' },
+  { id: 'controls', label: 'Controls', group: 'Inputs' },
+
+  // Display — showing data & feedback
+  { id: 'cards', label: 'Cards', group: 'Display' },
+  { id: 'data', label: 'Data', group: 'Display' },
+  { id: 'feedback', label: 'Feedback', group: 'Display' },
+  { id: 'toast', label: 'Toast & Scroll', group: 'Display' },
+
+  // Navigation — moving around
+  { id: 'navigation', label: 'Navigation', group: 'Navigation' },
+  { id: 'overlays', label: 'Overlays', group: 'Navigation' },
+
+  // SDK — how to use @construct-space/sdk
+  { id: 'sdk', label: 'SDK', group: 'SDK' },
+
+  // Patterns — Construct-specific
   { id: 'space', label: 'Space', group: 'Patterns' },
   { id: 'sidebar', label: 'Sidebar', group: 'Patterns' },
   { id: 'toolbar', label: 'Toolbar', group: 'Patterns' },
-  { id: 'settings', label: 'Settings Page', group: 'Patterns' },
   { id: 'dashboard', label: 'Dashboard', group: 'Patterns' },
+  { id: 'settings', label: 'Settings', group: 'Patterns' },
 ]
 
 const currentPage = ref<string>('overview')

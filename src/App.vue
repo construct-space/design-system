@@ -19,6 +19,7 @@ import FeedbackPage from './pages/FeedbackPage.vue'
 import ToastPage from './pages/ToastPage.vue'
 import NavigationPage from './pages/NavigationPage.vue'
 import DataPage from './pages/DataPage.vue'
+import SdkPage from './pages/SdkPage.vue'
 import SpacePage from './pages/SpacePage.vue'
 import SidebarPage from './pages/SidebarPage.vue'
 import ToolbarPage from './pages/ToolbarPage.vue'
@@ -45,6 +46,7 @@ const pageComponents: Record<string, Component> = {
   toast: ToastPage,
   navigation: NavigationPage,
   data: DataPage,
+  sdk: SdkPage,
   space: SpacePage,
   sidebar: SidebarPage,
   toolbar: ToolbarPage,

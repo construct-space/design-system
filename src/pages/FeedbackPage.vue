@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import SdkUsage from '../components/SdkUsage.vue'
+
+const sdkComponents = [
+  { name: 'Badge', import: 'Badge', usage: `<Badge label="Active" color="success" variant="soft" />\n<Badge label="Error" color="error" size="xs" />` },
+]
 </script>
 
 <template>
@@ -45,5 +50,6 @@
       <p class="text-xs mb-4" :style="{ color: 'var(--c-muted)' }">Try adjusting your search or filters.</p>
       <button class="px-4 py-2 rounded-lg text-sm font-medium" :style="{ background: 'var(--c-accent)', color: 'var(--c-accent-fg)' }">Clear filters</button>
     </div>
+    <SdkUsage :components="sdkComponents" />
   </div>
 </template>

@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import SdkUsage from '../components/SdkUsage.vue'
+
+const sdkComponents = [
+  { name: 'Input', import: 'Input', usage: `<Input v-model="name" placeholder="Name" icon="i-lucide-user" />\n<Input type="password" size="sm" variant="soft" />` },
+  { name: 'Textarea', import: 'Textarea', usage: `<Textarea v-model="bio" placeholder="Write..." rows="4" autoresize />` },
+  { name: 'Checkbox', import: 'Checkbox', usage: `<Checkbox v-model="agreed" label="I agree to terms" />` },
+  { name: 'FormField', import: 'FormField', usage: `<FormField label="Email" name="email" error="Required">\n  <Input v-model="email" />\n</FormField>` },
+]
 </script>
 
 <template>
@@ -40,5 +48,6 @@
         <button class="px-4 py-2 rounded-lg text-sm font-medium" :style="{ color: 'var(--c-muted)' }">Cancel</button>
       </div>
     </div>
+    <SdkUsage :components="sdkComponents" />
   </div>
 </template>

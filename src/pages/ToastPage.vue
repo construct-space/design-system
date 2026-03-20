@@ -13,6 +13,13 @@ const positions = [
   { label: 'bottom-right', bottom: '8px', right: '8px', top: 'auto', left: 'auto' },
 ]
 
+import SdkUsage from '../components/SdkUsage.vue'
+
+const sdkComponents = [
+  { name: 'useToast', import: 'useToast', usage: `const { toast } = useToast()\n\ntoast.success('Saved', 'Your changes were saved.')\ntoast.error('Failed', 'Could not connect.')\ntoast.warning('Low disk', 'Less than 1GB remaining.')\ntoast.info('Update', 'New version available.')` },
+  { name: 'ScrollArea', import: 'ScrollArea', usage: `<ScrollArea class="h-64">\n  <!-- long content -->\n</ScrollArea>` },
+]
+
 const scrollItems = Array.from({ length: 20 }, (_, i) => ({
   id: i + 1,
   label: [
@@ -153,6 +160,7 @@ const scrollItems = Array.from({ length: 20 }, (_, i) => ({
         </div>
       </div>
     </section>
+    <SdkUsage :components="sdkComponents" />
   </div>
 </template>
 

@@ -1,4 +1,11 @@
 <script setup lang="ts">
+import SdkUsage from '../components/SdkUsage.vue'
+
+const sdkComponents = [
+  { name: 'Tooltip', import: 'Tooltip', usage: `<Tooltip text="Copy to clipboard">\n  <Button icon="i-lucide-copy" variant="ghost" />\n</Tooltip>` },
+  { name: 'Avatar', import: 'Avatar', usage: `<Avatar src="/avatar.jpg" alt="User" size="md" />\n<Avatar fallback="FR" size="sm" />` },
+  { name: 'Icon', import: 'Icon', usage: `<Icon name="i-lucide-star" class="size-5 text-yellow-400" />` },
+]
 </script>
 
 <template>
@@ -40,5 +47,7 @@
         </div>
       </div>
     </div>
+
+    <SdkUsage :components="sdkComponents" />
   </div>
 </template>

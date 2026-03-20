@@ -1,7 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import SdkUsage from '../components/SdkUsage.vue'
 
 const popoverVisible = ref(true)
+
+const sdkComponents = [
+  { name: 'Modal', import: 'Modal', usage: `<Modal v-model:open="showModal" title="Confirm">\n  <template #body>Are you sure?</template>\n  <template #footer>\n    <Button label="Cancel" variant="ghost" @click="showModal = false" />\n    <Button label="Confirm" @click="handleConfirm" />\n  </template>\n</Modal>` },
+  { name: 'Slideover', import: 'Slideover', usage: `<Slideover v-model:open="showPanel" title="Details" side="right">\n  Panel content here\n</Slideover>` },
+  { name: 'Popover', import: 'Popover', usage: `<Popover>\n  <Button label="Options" />\n  <template #content>\n    Popover content\n  </template>\n</Popover>` },
+  { name: 'ContextMenu', import: 'ContextMenu', usage: `<ContextMenu :items="[\n  [{ label: 'Edit', icon: 'i-lucide-pencil' }],\n  [{ label: 'Delete', icon: 'i-lucide-trash' }],\n]">\n  <div>Right-click me</div>\n</ContextMenu>` },
+]
 
 const contextMenuItems = [
   { label: 'Edit', danger: false, separator: false, path: '<path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>' },
@@ -212,5 +220,7 @@ const contextMenuItems = [
         </div>
       </div>
     </section>
+
+    <SdkUsage :components="sdkComponents" />
   </div>
 </template>
