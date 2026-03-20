@@ -13,7 +13,10 @@ import LogoPage from './pages/LogoPage.vue'
 import ButtonsPage from './pages/ButtonsPage.vue'
 import InputsPage from './pages/InputsPage.vue'
 import CardsPage from './pages/CardsPage.vue'
+import ControlsPage from './pages/ControlsPage.vue'
+import OverlaysPage from './pages/OverlaysPage.vue'
 import FeedbackPage from './pages/FeedbackPage.vue'
+import ToastPage from './pages/ToastPage.vue'
 import NavigationPage from './pages/NavigationPage.vue'
 import DataPage from './pages/DataPage.vue'
 import SpacePage from './pages/SpacePage.vue'
@@ -36,7 +39,10 @@ const pageComponents: Record<string, Component> = {
   buttons: ButtonsPage,
   inputs: InputsPage,
   cards: CardsPage,
+  controls: ControlsPage,
+  overlays: OverlaysPage,
   feedback: FeedbackPage,
+  toast: ToastPage,
   navigation: NavigationPage,
   data: DataPage,
   space: SpacePage,
