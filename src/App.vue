@@ -1,130 +1,76 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { themes, applyTheme, type Theme } from './themes'
+import { onMounted, watch, shallowRef, type Component } from 'vue'
+import { useTheme } from './composables/useTheme'
+import { usePages } from './composables/usePages'
 import Sidebar from './components/Sidebar.vue'
 import ThemeSwitcher from './components/ThemeSwitcher.vue'
 
-const pages = [
-  { id: 'overview', label: 'Overview', group: 'Foundation' },
-  { id: 'colors', label: 'Colors', group: 'Foundation' },
-  { id: 'typography', label: 'Typography', group: 'Foundation' },
-  { id: 'themes', label: 'Themes', group: 'Foundation' },
-  { id: 'logo', label: 'Logo & Brand', group: 'Foundation' },
-  { id: 'buttons', label: 'Buttons', group: 'Components' },
-  { id: 'inputs', label: 'Inputs', group: 'Components' },
-  { id: 'cards', label: 'Cards', group: 'Components' },
-  { id: 'feedback', label: 'Feedback', group: 'Components' },
-  { id: 'navigation', label: 'Navigation', group: 'Components' },
-  { id: 'data', label: 'Data Display', group: 'Components' },
-  { id: 'sidebar', label: 'Sidebar', group: 'Patterns' },
-  { id: 'settings', label: 'Settings Page', group: 'Patterns' },
-  { id: 'dashboard', label: 'Dashboard', group: 'Patterns' },
-]
+import OverviewPage from './pages/OverviewPage.vue'
+import ColorsPage from './pages/ColorsPage.vue'
+import TypographyPage from './pages/TypographyPage.vue'
+import ThemesPage from './pages/ThemesPage.vue'
+import LogoPage from './pages/LogoPage.vue'
+import ButtonsPage from './pages/ButtonsPage.vue'
+import InputsPage from './pages/InputsPage.vue'
+import CardsPage from './pages/CardsPage.vue'
+import FeedbackPage from './pages/FeedbackPage.vue'
+import NavigationPage from './pages/NavigationPage.vue'
+import DataPage from './pages/DataPage.vue'
+import SpacePage from './pages/SpacePage.vue'
+import SidebarPage from './pages/SidebarPage.vue'
+import ToolbarPage from './pages/ToolbarPage.vue'
+import SettingsPage from './pages/SettingsPage.vue'
+import DashboardPage from './pages/DashboardPage.vue'
 
-const currentPage = ref('overview')
-const currentTheme = ref<Theme>(themes[2]) // vs-dark default
+const { currentTheme, setTheme, applyTheme } = useTheme()
+const { pages, currentPage } = usePages()
 
-function setTheme(t: Theme) {
-  currentTheme.value = t
-  applyTheme(t)
+const sidebarOpen = shallowRef(false)
+
+const pageComponents: Record<string, Component> = {
+  overview: OverviewPage,
+  colors: ColorsPage,
+  typography: TypographyPage,
+  themes: ThemesPage,
+  logo: LogoPage,
+  buttons: ButtonsPage,
+  inputs: InputsPage,
+  cards: CardsPage,
+  feedback: FeedbackPage,
+  navigation: NavigationPage,
+  data: DataPage,
+  space: SpacePage,
+  sidebar: SidebarPage,
+  toolbar: ToolbarPage,
+  settings: SettingsPage,
+  dashboard: DashboardPage,
 }
+
+watch(currentPage, () => { sidebarOpen.value = false })
 
 onMounted(() => applyTheme(currentTheme.value))
 </script>
 
 <template>
   <div class="flex min-h-screen" :style="{ background: 'var(--c-bg)', color: 'var(--c-fg)' }">
-    <Sidebar :pages="pages" :active="currentPage" @navigate="currentPage = $event" />
+    <button
+      class="fixed top-4 left-4 z-50 p-2 rounded-lg border lg:hidden"
+      :style="{ background: 'var(--c-surface)', borderColor: 'var(--c-border)', color: 'var(--c-fg)' }"
+      @click="sidebarOpen = !sidebarOpen"
+    >
+      <svg class="size-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 010 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 010 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 010 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+    </button>
 
-    <main class="ml-56 flex-1 px-10 py-8 max-w-4xl">
-      <ThemeSwitcher :themes="themes" :current="currentTheme" @select="setTheme" />
+    <div v-if="sidebarOpen" class="fixed inset-0 bg-black/50 z-30 lg:hidden" @click="sidebarOpen = false"></div>
 
-      <!-- Overview -->
-      <template v-if="currentPage === 'overview'">
-        <div class="mb-8">
-          <p class="text-[10px] uppercase tracking-widest mb-1" :style="{ color: 'var(--c-accent)' }">Design System</p>
-          <h1 class="text-3xl font-bold">Construct UI</h1>
-          <p class="text-sm mt-1" :style="{ color: 'var(--c-muted)' }">The visual language for the Construct ecosystem.</p>
-        </div>
-        <div class="grid grid-cols-3 gap-4 mb-8">
-          <div class="p-4 rounded-lg border" :style="{ borderColor: 'var(--c-border)', background: 'var(--c-card)' }">
-            <h3 class="text-sm font-semibold mb-1">Dark First</h3>
-            <p class="text-xs" :style="{ color: 'var(--c-muted)' }">14 themes. Dark is default.</p>
-          </div>
-          <div class="p-4 rounded-lg border" :style="{ borderColor: 'var(--c-border)', background: 'var(--c-card)' }">
-            <h3 class="text-sm font-semibold mb-1">Minimal Chrome</h3>
-            <p class="text-xs" :style="{ color: 'var(--c-muted)' }">Content first. Subtle borders.</p>
-          </div>
-          <div class="p-4 rounded-lg border" :style="{ borderColor: 'var(--c-border)', background: 'var(--c-card)' }">
-            <h3 class="text-sm font-semibold mb-1">One Token Set</h3>
-            <p class="text-xs" :style="{ color: 'var(--c-muted)' }">Same CSS vars across all products.</p>
-          </div>
-        </div>
-      </template>
+    <Sidebar
+      :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+      class="z-40 transition-transform duration-200"
+    />
 
-      <!-- Themes -->
-      <template v-if="currentPage === 'themes'">
-        <div class="mb-8">
-          <p class="text-[10px] uppercase tracking-widest mb-1" :style="{ color: 'var(--c-accent)' }">Foundation</p>
-          <h1 class="text-3xl font-bold">Themes</h1>
-          <p class="text-sm mt-1" :style="{ color: 'var(--c-muted)' }">14 built-in themes. Click to switch.</p>
-        </div>
-        <div class="grid grid-cols-3 gap-3 mb-8">
-          <button
-            v-for="t in themes" :key="t.id"
-            class="p-4 rounded-lg border text-left transition-all cursor-pointer"
-            :style="{
-              background: t.bg,
-              borderColor: currentTheme.id === t.id ? t.accent : 'var(--c-border)',
-              outline: currentTheme.id === t.id ? `2px solid ${t.accent}` : 'none',
-              outlineOffset: '2px',
-            }"
-            @click="setTheme(t)"
-          >
-            <div class="flex items-center gap-2 mb-2">
-              <div class="size-3 rounded-full" :style="{ background: t.accent }"></div>
-              <span class="text-sm font-medium" :style="{ color: t.fg }">{{ t.name }}</span>
-            </div>
-            <div class="flex gap-1">
-              <div class="h-2 flex-1 rounded" :style="{ background: t.accent }"></div>
-              <div class="h-2 flex-1 rounded" :style="{ background: t.muted }"></div>
-              <div class="h-2 flex-1 rounded" :style="{ background: t.fg }"></div>
-            </div>
-            <p class="text-[10px] mt-2 font-mono" :style="{ color: t.muted }">{{ t.mode }} · {{ t.accent }}</p>
-          </button>
-        </div>
-      </template>
-
-      <!-- Buttons -->
-      <template v-if="currentPage === 'buttons'">
-        <div class="mb-8">
-          <p class="text-[10px] uppercase tracking-widest mb-1" :style="{ color: 'var(--c-accent)' }">Components</p>
-          <h1 class="text-3xl font-bold">Buttons</h1>
-        </div>
-        <div class="flex flex-wrap gap-3 mb-6">
-          <button class="px-4 py-2 rounded-lg text-sm font-medium text-white" :style="{ background: 'var(--c-accent)' }">Primary</button>
-          <button class="px-4 py-2 rounded-lg text-sm font-medium" :style="{ background: 'var(--c-input)', color: 'var(--c-fg)' }">Secondary</button>
-          <button class="px-4 py-2 rounded-lg text-sm font-medium border" :style="{ borderColor: 'var(--c-border)', color: 'var(--c-fg)' }">Outline</button>
-          <button class="px-4 py-2 rounded-lg text-sm font-medium" :style="{ color: 'var(--c-muted)' }">Ghost</button>
-          <button class="px-4 py-2 rounded-lg text-sm font-medium text-white bg-red-500">Danger</button>
-          <button class="px-4 py-2 rounded-lg text-sm font-medium opacity-40 cursor-not-allowed text-white" :style="{ background: 'var(--c-accent)' }" disabled>Disabled</button>
-        </div>
-        <p class="text-[10px] uppercase tracking-widest mb-2" :style="{ color: 'var(--c-muted)' }">Sizes</p>
-        <div class="flex items-center gap-3">
-          <button class="px-3 py-1 rounded-md text-xs font-medium text-white" :style="{ background: 'var(--c-accent)' }">Small</button>
-          <button class="px-4 py-2 rounded-lg text-sm font-medium text-white" :style="{ background: 'var(--c-accent)' }">Default</button>
-          <button class="px-6 py-3 rounded-lg text-base font-medium text-white" :style="{ background: 'var(--c-accent)' }">Large</button>
-        </div>
-      </template>
-
-      <!-- Fallback for pages not yet ported -->
-      <template v-if="!['overview','themes','buttons'].includes(currentPage)">
-        <div class="mb-8">
-          <p class="text-[10px] uppercase tracking-widest mb-1" :style="{ color: 'var(--c-accent)' }">{{ pages.find(p => p.id === currentPage)?.group }}</p>
-          <h1 class="text-3xl font-bold">{{ pages.find(p => p.id === currentPage)?.label }}</h1>
-          <p class="text-sm mt-2" :style="{ color: 'var(--c-muted)' }">Switch themes above to preview tokens.</p>
-        </div>
-      </template>
+    <main class="flex-1 px-5 py-14 lg:ml-56 lg:px-10 lg:py-8 max-w-4xl">
+      <ThemeSwitcher />
+      <component :is="pageComponents[currentPage]" />
     </main>
   </div>
 </template>

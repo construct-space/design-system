@@ -11,7 +11,7 @@ export interface Theme {
 
 export const themes: Theme[] = [
   { id: 'auto', name: 'Auto (System)', mode: 'dark', bg: '#0f172a', fg: '#f8fafc', muted: '#64748b', accent: '#34C759', accentFg: '#ffffff' },
-  { id: 'vs', name: 'Light', mode: 'light', bg: '#ffffff', fg: '#1e293b', muted: '#64748b', accent: '#34C759', accentFg: '#ffffff' },
+  { id: 'vs', name: 'Light', mode: 'light', bg: '#f4f6f8', fg: '#1e293b', muted: '#64748b', accent: '#475569', accentFg: '#ffffff' },
   { id: 'vs-dark', name: 'Dark', mode: 'dark', bg: '#1e1e1e', fg: '#d4d4d4', muted: '#6b7280', accent: '#34C759', accentFg: '#ffffff' },
   { id: 'synthwave-84', name: "Synthwave '84", mode: 'dark', bg: '#262335', fg: '#ffffff', muted: '#848bbd', accent: '#ff7edb', accentFg: '#000000' },
   { id: 'dracula', name: 'Dracula', mode: 'dark', bg: '#282a36', fg: '#f8f8f2', muted: '#6272a4', accent: '#bd93f9', accentFg: '#000000' },
@@ -37,15 +37,21 @@ export function applyTheme(theme: Theme) {
   s.setProperty('--c-muted', theme.muted)
   s.setProperty('--c-accent', theme.accent)
   s.setProperty('--c-accent-fg', theme.accentFg)
-  s.setProperty('--c-border', isDark ? off(r, g, b, 30) : off(r, g, b, -20))
-  s.setProperty('--c-surface', isDark ? off(r, g, b, 10) : off(r, g, b, -5))
-  s.setProperty('--c-card', isDark ? off(r, g, b, 16) : theme.bg)
-  s.setProperty('--c-input', isDark ? off(r, g, b, 24) : off(r, g, b, -12))
+  const [ar, ag, ab] = hexToRgb(theme.accent)
+  s.setProperty('--c-border', isDark ? off(r, g, b, 30) : mix(r, g, b, ar, ag, ab, 0.12))
+  s.setProperty('--c-surface', isDark ? off(r, g, b, 10) : mix(r, g, b, ar, ag, ab, 0.04))
+  s.setProperty('--c-card', isDark ? off(r, g, b, 16) : '#ffffff')
+  s.setProperty('--c-input', isDark ? off(r, g, b, 24) : mix(r, g, b, ar, ag, ab, 0.07))
 }
 
 function hexToRgb(hex: string): [number, number, number] {
   const h = hex.replace('#', '')
   return [parseInt(h.substring(0, 2), 16), parseInt(h.substring(2, 4), 16), parseInt(h.substring(4, 6), 16)]
+}
+
+function mix(r1: number, g1: number, b1: number, r2: number, g2: number, b2: number, t: number): string {
+  const m = (a: number, b: number) => Math.round(a + (b - a) * t)
+  return '#' + [m(r1, r2), m(g1, g2), m(b1, b2)].map(v => v.toString(16).padStart(2, '0')).join('')
 }
 
 function off(r: number, g: number, b: number, n: number): string {
