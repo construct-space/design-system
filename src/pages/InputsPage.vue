@@ -1,53 +1,62 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import { CInput, CTextarea, CCheckbox, CFormField } from '@construct-space/ui'
 import SdkUsage from '../components/SdkUsage.vue'
 
+const name = ref('')
+const password = ref('')
+const search = ref('')
+const bio = ref('')
+const agreed = ref(true)
+
 const sdkComponents = [
-  { name: 'Input', import: 'Input', usage: `<Input v-model="name" placeholder="Name" icon="i-lucide-user" />\n<Input type="password" size="sm" variant="soft" />` },
-  { name: 'Textarea', import: 'Textarea', usage: `<Textarea v-model="bio" placeholder="Write..." rows="4" autoresize />` },
-  { name: 'Checkbox', import: 'Checkbox', usage: `<Checkbox v-model="agreed" label="I agree to terms" />` },
-  { name: 'FormField', import: 'FormField', usage: `<FormField label="Email" name="email" error="Required">\n  <Input v-model="email" />\n</FormField>` },
+  { name: 'CInput', import: 'CInput', source: 'ui', usage: `<CInput v-model="name" placeholder="Name" icon="i-lucide-user" />\n<CInput type="password" size="sm" variant="soft" />` },
+  { name: 'CTextarea', import: 'CTextarea', source: 'ui', usage: `<CTextarea v-model="bio" placeholder="Write..." rows="4" autoresize />` },
+  { name: 'CCheckbox', import: 'CCheckbox', source: 'ui', usage: `<CCheckbox v-model="agreed" label="I agree to terms" />` },
+  { name: 'CFormField', import: 'CFormField', source: 'ui', usage: `<CFormField label="Email" name="email" error="Required">\n  <CInput v-model="email" />\n</CFormField>` },
 ]
 </script>
 
 <template>
   <div>
     <div class="mb-8">
-      <p class="text-[10px] uppercase tracking-widest mb-1" :style="{ color: 'var(--c-accent)' }">Components</p>
+      <p class="text-[10px] uppercase tracking-widest mb-1" :style="{ color: 'var(--c-accent)' }">@construct-space/ui</p>
       <h1 class="text-3xl font-bold">Inputs</h1>
     </div>
+
     <p class="text-[10px] uppercase tracking-widest mb-3" :style="{ color: 'var(--c-muted)' }">Text Inputs</p>
     <div class="space-y-3 mb-8 max-w-md">
-      <input type="text" placeholder="Default" class="w-full px-3 py-2 rounded-lg text-sm border-none outline-none" :style="{ background: 'var(--c-input)', color: 'var(--c-fg)' }">
-      <input type="password" placeholder="Password" class="w-full px-3 py-2 rounded-lg text-sm border-none outline-none" :style="{ background: 'var(--c-input)', color: 'var(--c-fg)' }">
-      <input type="text" placeholder="Search..." class="w-full px-3 py-2 rounded-lg text-sm border-none outline-none" :style="{ background: 'var(--c-input)', color: 'var(--c-fg)' }">
-      <input type="text" value="Error state" class="w-full px-3 py-2 rounded-lg text-sm outline-none border-2" :style="{ background: 'var(--c-input)', color: 'var(--c-fg)', borderColor: '#ef4444' }">
-      <input type="text" placeholder="Disabled" disabled class="w-full px-3 py-2 rounded-lg text-sm border-none outline-none opacity-40" :style="{ background: 'var(--c-input)', color: 'var(--c-fg)' }">
+      <CInput v-model="name" placeholder="Default" />
+      <CInput v-model="password" type="password" placeholder="Password" />
+      <CInput v-model="search" placeholder="Search..." icon="i-lucide-search" />
+      <CInput model-value="Error state" placeholder="Error" />
+      <CInput placeholder="Disabled" disabled />
     </div>
+
     <p class="text-[10px] uppercase tracking-widest mb-3" :style="{ color: 'var(--c-muted)' }">Textarea</p>
-    <textarea placeholder="Write something..." rows="3" class="w-full max-w-md px-3 py-2 rounded-lg text-sm border-none outline-none resize-y mb-8" :style="{ background: 'var(--c-input)', color: 'var(--c-fg)' }"></textarea>
+    <div class="max-w-md mb-8">
+      <CTextarea v-model="bio" placeholder="Write something..." :rows="3" autoresize />
+    </div>
+
     <p class="text-[10px] uppercase tracking-widest mb-3" :style="{ color: 'var(--c-muted)' }">Controls</p>
     <div class="space-y-3 mb-8">
-      <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" checked class="accent-[var(--c-accent)]"> Checkbox enabled</label>
-      <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-[var(--c-accent)]"> Checkbox unchecked</label>
-      <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="r" checked class="accent-[var(--c-accent)]"> Radio A</label>
-      <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="r" class="accent-[var(--c-accent)]"> Radio B</label>
+      <CCheckbox v-model="agreed" label="Checkbox enabled" />
     </div>
+
     <p class="text-[10px] uppercase tracking-widest mb-3" :style="{ color: 'var(--c-muted)' }">Form Pattern</p>
     <div class="max-w-md p-6 rounded-lg border space-y-4" :style="{ borderColor: 'var(--c-border)', background: 'var(--c-card)' }">
-      <div>
-        <label class="block text-xs font-medium mb-1">Name</label>
-        <input type="text" placeholder="Your name" class="w-full px-3 py-2 rounded-lg text-sm border-none outline-none" :style="{ background: 'var(--c-input)', color: 'var(--c-fg)' }">
-      </div>
-      <div>
-        <label class="block text-xs font-medium mb-1">Email</label>
-        <input type="email" placeholder="you@example.com" class="w-full px-3 py-2 rounded-lg text-sm border-none outline-none" :style="{ background: 'var(--c-input)', color: 'var(--c-fg)' }">
-        <p class="text-[10px] mt-1" :style="{ color: 'var(--c-muted)' }">We'll never share your email.</p>
-      </div>
+      <CFormField label="Name">
+        <CInput v-model="name" placeholder="Your name" />
+      </CFormField>
+      <CFormField label="Email" help="We'll never share your email.">
+        <CInput placeholder="you@example.com" type="email" />
+      </CFormField>
       <div class="flex gap-3 pt-2">
-        <button class="px-4 py-2 rounded-lg text-sm font-medium" :style="{ background: 'var(--c-accent)', color: 'var(--c-accent-fg)' }">Submit</button>
-        <button class="px-4 py-2 rounded-lg text-sm font-medium" :style="{ color: 'var(--c-muted)' }">Cancel</button>
+        <CButton label="Submit" variant="solid" />
+        <CButton label="Cancel" variant="ghost" />
       </div>
     </div>
+
     <SdkUsage :components="sdkComponents" />
   </div>
 </template>

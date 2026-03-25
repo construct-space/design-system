@@ -11,7 +11,7 @@ const { pages, currentPage } = usePages()
     <div class="mb-10">
       <p class="text-[10px] uppercase tracking-widest mb-1" :style="{ color: 'var(--c-accent)' }">Design System</p>
       <h1 class="text-3xl font-bold">Construct UI</h1>
-      <p class="text-sm mt-1" :style="{ color: 'var(--c-muted)' }">The visual language for the Construct ecosystem.</p>
+      <p class="text-sm mt-1" :style="{ color: 'var(--c-muted)' }">The visual language for the Construct ecosystem. Components available via <code class="text-xs px-1.5 py-0.5 rounded" :style="{ background: 'var(--c-input)', color: 'var(--c-accent)' }">@construct-space/ui</code></p>
     </div>
 
     <!-- Principles -->

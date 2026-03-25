@@ -1,31 +1,45 @@
 <script setup lang="ts">
+import { CButton } from '@construct-space/ui'
 import SdkUsage from '../components/SdkUsage.vue'
 
 const sdkComponents = [
-  { name: 'Button', import: 'Button', usage: `<Button label="Save" variant="solid" color="primary" />\n<Button icon="i-lucide-plus" variant="ghost" size="xs" />\n<Button label="Delete" variant="soft" color="error" loading />` },
+  { name: 'CButton', import: 'CButton', source: 'ui', usage: `<CButton label="Save" variant="solid" color="primary" />\n<CButton icon="i-lucide-plus" variant="ghost" size="xs" />\n<CButton label="Delete" variant="soft" color="error" loading />` },
 ]
 </script>
 
 <template>
   <div>
     <div class="mb-8">
-      <p class="text-[10px] uppercase tracking-widest mb-1" :style="{ color: 'var(--c-accent)' }">Components</p>
+      <p class="text-[10px] uppercase tracking-widest mb-1" :style="{ color: 'var(--c-accent)' }">@construct-space/ui</p>
       <h1 class="text-3xl font-bold">Buttons</h1>
     </div>
+
+    <p class="text-[10px] uppercase tracking-widest mb-3" :style="{ color: 'var(--c-muted)' }">Live Components</p>
     <div class="flex flex-wrap gap-3 mb-6">
-      <button class="px-4 py-2 rounded-lg text-sm font-medium text-white" :style="{ background: 'var(--c-accent)' }">Primary</button>
-      <button class="px-4 py-2 rounded-lg text-sm font-medium" :style="{ background: 'var(--c-input)', color: 'var(--c-fg)' }">Secondary</button>
-      <button class="px-4 py-2 rounded-lg text-sm font-medium border" :style="{ borderColor: 'var(--c-border)', color: 'var(--c-fg)' }">Outline</button>
-      <button class="px-4 py-2 rounded-lg text-sm font-medium" :style="{ color: 'var(--c-muted)' }">Ghost</button>
-      <button class="px-4 py-2 rounded-lg text-sm font-medium text-white bg-red-500">Danger</button>
-      <button class="px-4 py-2 rounded-lg text-sm font-medium opacity-40 cursor-not-allowed text-white" :style="{ background: 'var(--c-accent)' }" disabled>Disabled</button>
+      <CButton label="Primary" variant="solid" />
+      <CButton label="Secondary" variant="soft" />
+      <CButton label="Outline" variant="outline" />
+      <CButton label="Ghost" variant="ghost" />
+      <CButton label="Danger" variant="solid" color="error" />
+      <CButton label="Disabled" variant="solid" disabled />
     </div>
+
     <p class="text-[10px] uppercase tracking-widest mb-2" :style="{ color: 'var(--c-muted)' }">Sizes</p>
-    <div class="flex items-center gap-3">
-      <button class="px-3 py-1 rounded-md text-xs font-medium text-white" :style="{ background: 'var(--c-accent)' }">Small</button>
-      <button class="px-4 py-2 rounded-lg text-sm font-medium text-white" :style="{ background: 'var(--c-accent)' }">Default</button>
-      <button class="px-6 py-3 rounded-lg text-base font-medium text-white" :style="{ background: 'var(--c-accent)' }">Large</button>
+    <div class="flex items-center gap-3 mb-6">
+      <CButton label="Extra Small" size="xs" variant="solid" />
+      <CButton label="Small" size="sm" variant="solid" />
+      <CButton label="Default" variant="solid" />
+      <CButton label="Large" size="lg" variant="solid" />
     </div>
+
+    <p class="text-[10px] uppercase tracking-widest mb-2" :style="{ color: 'var(--c-muted)' }">With Icons</p>
+    <div class="flex items-center gap-3 mb-6">
+      <CButton label="Add" icon="i-lucide-plus" variant="solid" />
+      <CButton label="Settings" icon="i-lucide-settings" variant="outline" />
+      <CButton icon="i-lucide-search" variant="ghost" size="sm" />
+      <CButton label="Loading" variant="solid" loading />
+    </div>
+
     <SdkUsage :components="sdkComponents" />
   </div>
 </template>
